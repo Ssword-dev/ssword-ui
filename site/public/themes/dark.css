@@ -1,0 +1,18 @@
+:root {
+    --pallete-color-background: oklch(0.1 0 155);
+    --pallete-color-surface: oklch(0.15 0 155);
+    --pallete-color-muted: oklch(0.2 0 155);
+    --pallete-color-text: oklch(0.96 0 155);
+    --pallete-color-text-muted: oklch(0.76 0 155);
+    --pallete-color-accent: oklch(0.75 0.15 270);
+    --pallete-color-accent-strong: oklch(0.68 0.28 275);
+    --pallete-color-border: oklch(0.4 0 155);
+    --pallete-color-border-muted: oklch(0.3 0 155);
+    --pallete-color-primary: oklch(0.76 0.1 155);
+    --pallete-color-secondary: oklch(0.76 0.1 335);
+    --pallete-color-danger: oklch(0.7 0.05 30);
+    --pallete-color-warning: oklch(0.7 0.05 100);
+    --pallete-color-success: oklch(0.7 0.05 160);
+    --pallete-color-info: oklch(0.7 0.05 260);
+    --pallete-color-shadow: oklch(0.3 0 155);
+}

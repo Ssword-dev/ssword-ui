@@ -1,0 +1,15 @@
+{
+	// specify no input files.
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.lib.json"
+		},
+		{
+			"path": "./tsconfig.vitest.json"
+		}
+	]
+}

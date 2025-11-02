@@ -1,0 +1,15 @@
+{
+	// specify no input files.
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.virtual.json"
+		},
+		{
+			"path": "./packages/ui-vue/tsconfig.json"
+		},
+		{
+			"path": "./projects/playground/tsconfig.json"
+		}
+	]
+}
