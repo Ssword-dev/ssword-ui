@@ -1,5 +1,5 @@
 {
-	"name": "@ssword/ui",
+	"name": "@ssword/source",
 	"type": "module",
 	"workspaces": [
 		"./site",

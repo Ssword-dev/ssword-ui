@@ -5,6 +5,9 @@
 		{
 			"path": "./tsconfig.virtual.json"
 		},
+    {
+      "path": "./packages/vite-mono/tsconfig.json"
+    },
 		{
 			"path": "./packages/ui-vue/tsconfig.json"
 		},
