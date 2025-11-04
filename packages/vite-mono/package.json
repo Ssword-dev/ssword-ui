@@ -2,7 +2,9 @@
   "type": "module",
   "name": "@ssword/vite-mono",
   "scripts": {
-    "build": "yarn vite build"
+    "build": "yarn vite build",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "packageManager": "yarn@4.6.0",
   "devDependencies": {
@@ -11,16 +13,20 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^24.10.0",
+    "@types/semver": "^7",
     "@types/yargs": "^17.0.34",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "vite": "^7.1.12",
+    "vitest": "^4.0.6",
     "yargs": "^18.0.0"
   },
   "dependencies": {
     "chalk": "^5.6.2",
     "fast-glob": "^3.3.3",
     "fsevents": "^2.3.3",
-    "rollup": "^4.52.5"
+    "rollup": "^4.52.5",
+    "semver": "^7.7.3",
+    "zod": "4"
   }
 }

@@ -1,0 +1,18 @@
+{
+  "test": {
+    "globals": true,
+    "environment": "node",
+    "include": ["src/**/*.spec.{ts,js}", "src/**/*.test.{ts,js}"],
+    "exclude": ["node_modules", "dist"],
+    "coverage": {
+      "provider": "c8",
+      "reporter": ["text", "lcov"],
+      "exclude": ["**/node_modules/**", "**/dist/**"]
+    },
+    "threads": false,
+    "isolate": true,
+    "deps": {
+      "inline": []
+    }
+  }
+}

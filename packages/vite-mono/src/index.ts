@@ -1,50 +1,37 @@
-import { createRequire } from 'node:module';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
 import fg from 'fast-glob';
 import fs from 'node:fs';
 import { build, loadConfigFromFile, UserConfig } from 'vite';
 import Logger from './logger';
-import require from './require';
-
-function importJSON(filePath: string) {
-	return require(filePath);
-}
-
-function importPackageJSON(filePath: string) {
-	return importJSON(path.resolve(filePath, './package.json'));
+import { loadPackageJSON, type PackageJSON } from './package';
+/**
+ * Synchronously read a package.json for a given directory. Returns an empty object
+ * when the package.json cannot be loaded so callers can treat it as optional.
+ */
+function readPackageJSON(dir: string): PackageJSON {
+	return loadPackageJSON(dir) ?? ({} as PackageJSON);
 }
 
 interface ViteMonoConfig {
 	root: string;
 }
 
-async function workspaceEntries(
-	root: string,
-	packageObject: Record<string, unknown>,
-): Promise<[string, string][]> {
-	if (!packageObject.workspaces) {
-		return [];
-	}
+async function workspaceEntries(root: string, pkg: PackageJSON): Promise<[string, string][]> {
+	const workspacesField = pkg.workspaces;
+	if (!workspacesField) return [];
 
-	// resolve all these workspaces to actual paths.
-	const workspaces = await fg(packageObject.workspaces as string | string[], {
+	// resolve workspace globs to absolute directories
+	const workspaces = await fg(workspacesField as string | string[], {
 		cwd: root,
 		onlyDirectories: true,
 		absolute: true,
 	});
 
-	const aliasEntries = await Promise.all(
-		workspaces.map(async (workspacePath: string) => {
-			const workspacePackageFile = path.resolve(workspacePath, 'package.json');
-			const workspacePackageObject = await importJSON(workspacePackageFile);
-
-			// return the workspace root (not the src folder) so we can locate vite configs
-			return [workspacePackageObject.name, workspacePath] as [string, string];
-		}),
-	);
-
-	return aliasEntries;
+	// map each workspace directory to its package name (if present)
+	return workspaces.map((workspacePath) => {
+		const workspacePkg = readPackageJSON(workspacePath);
+		return [workspacePkg.name ?? workspacePath, workspacePath] as [string, string];
+	});
 }
 
 const globFiles = (root: string, pattern: string | string[]) =>
@@ -68,24 +55,39 @@ const messages = {
 
 const logger = new Logger();
 
+function logf(format: string, ...params: string[]) {
+	logger.log(logger.format(format, ...(params as string[])));
+}
+
+// warnf intentionally omitted (not used).
+
 type WorkspaceEntry = [string, string];
+
+interface WorkspaceBindingAlias {
+	name: string;
+	source: string;
+}
+
+interface WorkspaceBinding {
+	alias: WorkspaceBindingAlias;
+}
 
 interface Workspace {
 	config: UserConfig;
 	configFile: string;
-	workspaceBindingAliases: Record<string, string>;
+	workspaceBinding: WorkspaceBinding;
 	source: string;
 	root: string;
 }
 
 class ViteMono {
 	public root: string;
-	public package: Promise<Record<string, string | string[]>>;
+	public package: Promise<PackageJSON>;
 
 	constructor(options: ViteMonoConfig) {
 		const root = path.resolve(process.cwd(), options.root);
 		this.root = root;
-		this.package = importPackageJSON(root);
+		this.package = Promise.resolve(readPackageJSON(root));
 	}
 
 	async getAllWorkspaceEntries() {
@@ -104,7 +106,7 @@ class ViteMono {
 		console.log(viteConfigPath);
 
 		if (!viteConfigPath) {
-			logger.log(messages['config-not-found'], workspaceName, workspaceName);
+			logf(messages['config-not-found'], workspaceName, workspaceName);
 			return null;
 		}
 
@@ -121,7 +123,7 @@ class ViteMono {
 		);
 
 		if (!configResolutionResult) {
-			logger.log(messages['config-resolution-error'], workspaceName);
+			logf(messages['config-resolution-error'], workspaceName);
 			return null;
 		}
 
@@ -131,7 +133,7 @@ class ViteMono {
 	async getSourceDirectory(workspaceName: string, workspacePath: string) {
 		let source: string | null = null;
 		try {
-			const pkg = await importJSON(path.resolve(workspacePath, 'package.json'));
+			const pkg = loadPackageJSON(workspacePath);
 			if (pkg && typeof pkg.source === 'string' && pkg.source.length > 0) {
 				source = pkg.source;
 			}
@@ -153,7 +155,7 @@ class ViteMono {
 		}
 
 		if (!source) {
-			logger.log(messages['source-resolution-error'], workspaceName);
+			logf(messages['source-resolution-error'], workspaceName);
 			return null;
 		}
 
@@ -161,14 +163,8 @@ class ViteMono {
 	}
 
 	async getAllWorkspaces(workspaceEntries: WorkspaceEntry[]): Promise<Workspace[]> {
-		const workspaceMap = Object.fromEntries(workspaceEntries);
 		const workspaces: (Workspace | null)[] = await Promise.all(
 			workspaceEntries.map(async ([workspaceName, workspacePath]) => {
-				const workspaceBindingAliases = { ...workspaceMap };
-
-				// remove the current workspace package itself.
-				delete workspaceBindingAliases[workspaceName];
-
 				const configResolutionResult = await this.getBuildConfiguration(
 					workspaceName,
 					workspacePath,
@@ -186,9 +182,18 @@ class ViteMono {
 					return null;
 				}
 
+				const workspaceBindingAlias: WorkspaceBindingAlias = {
+					name: workspaceName,
+					source: source,
+				};
+
+				const workspaceBinding: WorkspaceBinding = {
+					alias: workspaceBindingAlias,
+				};
+
 				return {
 					config,
-					workspaceBindingAliases,
+					workspaceBinding,
 					source,
 					root: workspacePath,
 					configFile: viteConfigPath,
@@ -201,30 +206,51 @@ class ViteMono {
 		return workspaces.filter((w) => w !== null);
 	}
 
+	// returns a set of workspace binding aliases as a map
+	// to be used for vite config.
+	getWorkspaceBindingAliasMap(workspaces: Workspace[]) {
+		return Object.fromEntries(
+			workspaces.map((ws) => [ws.workspaceBinding.alias.name, ws.workspaceBinding.alias.source]),
+		);
+	}
+
+	finalAliasMapFor(workspace: Workspace, bindingAliasMap: Record<string, string>) {
+		const clone = { ...bindingAliasMap };
+
+		delete clone[workspace.workspaceBinding.alias.name];
+
+		return clone;
+	}
+
 	async build() {
-		const workspaceEntries = await this.getAllWorkspaceEntries();
+		try {
+			const workspaceEntries = await this.getAllWorkspaceEntries();
 
-		// a set to track workspaces.
-		// prepare alias map for workspace packages so builds can resolve local packages to their src
-		const workspaces = await this.getAllWorkspaces(workspaceEntries);
+			// a set to track workspaces.
+			// prepare alias map for workspace packages so builds can resolve local packages to their src
+			const workspaces = await this.getAllWorkspaces(workspaceEntries);
+			const workspaceBindingAliasMap = this.getWorkspaceBindingAliasMap(workspaces);
 
-		for (const workspace of workspaces) {
-			const mergedResolve = {
-				...(workspace.config.resolve ?? {}),
-				alias: {
-					...(workspace.config.resolve?.alias ?? {}),
-					...workspace.workspaceBindingAliases,
-				},
-			};
+			for (const workspace of workspaces) {
+				const mergedResolve = {
+					...(workspace.config.resolve ?? {}),
+					alias: {
+						...(workspace.config.resolve?.alias ?? {}),
+						...this.finalAliasMapFor(workspace, workspaceBindingAliasMap),
+					},
+				};
 
-			await build({
-				...workspace.config,
-				root: workspace.root,
-				resolve: mergedResolve,
-				forceOptimizeDeps: true,
-				configFile: workspace.configFile,
-				logLevel: 'silent',
-			});
+				await build({
+					...workspace.config,
+					root: workspace.root,
+					resolve: mergedResolve,
+					forceOptimizeDeps: true,
+					configFile: workspace.configFile,
+					logLevel: 'silent',
+				});
+			}
+		} catch (e) {
+			logger.error(String(e));
 		}
 	}
 }
