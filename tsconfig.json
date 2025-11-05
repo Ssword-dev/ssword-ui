@@ -6,6 +6,9 @@
 			"path": "./tsconfig.virtual.json"
 		},
     {
+      "path": "./tsconfig.tests.json"
+    },
+    {
       "path": "./packages/vite-mono/tsconfig.json"
     },
 		{
