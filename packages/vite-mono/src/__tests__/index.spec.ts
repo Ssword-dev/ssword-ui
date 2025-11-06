@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { ViteMono } from '../index';
+import ViteMono from '../vite-mono';
 
 function makeTempDir(prefix = 'vm-test-') {
 	return fs.mkdtempSync(path.join(os.tmpdir(), prefix));
@@ -40,8 +40,8 @@ describe('ViteMono workspace helpers', () => {
 		fs.writeFileSync(path.join(a, 'package.json'), JSON.stringify({ name: '@test/pkg-a' }));
 		fs.writeFileSync(path.join(b, 'package.json'), JSON.stringify({ name: '@test/pkg-b' }));
 
-		const vm = new ViteMono({ root: tmpRoot });
-		const entries = await vm.getAllWorkspaceEntries();
+		const comp = ViteMono.createCompilation({ root: tmpRoot });
+		const entries = await ViteMono.getAllWorkspaceEntries(comp);
 		expect(entries.length).toBe(2);
 		const names = entries.map((e) => e[0]).sort();
 		expect(names).toEqual(['@test/pkg-a', '@test/pkg-b']);
@@ -60,12 +60,14 @@ describe('ViteMono workspace helpers', () => {
 		);
 		fs.mkdirSync(path.join(workspace, 'source-dir'));
 
-		const vm = new ViteMono({ root: tmpRoot });
-		const source = await vm.getSourceDirectory('ws', workspace);
+		const comp = ViteMono.createCompilation({ root: tmpRoot });
+		const source = await ViteMono.getSourceDirectory(comp, 'ws', workspace);
 		expect(source).toBe('source-dir');
 
 		// now remove package.json source and create only src
 		fs.writeFileSync(path.join(workspace, 'package.json'), JSON.stringify({ name: 'ws' }));
-		expect(await vm.getSourceDirectory('ws', workspace)).toBe('src');
+		// create a default `src` folder so the resolver can detect it
+		fs.mkdirSync(path.join(workspace, 'src'));
+		expect(await ViteMono.getSourceDirectory(comp, 'ws', workspace)).toBe('src');
 	});
 });

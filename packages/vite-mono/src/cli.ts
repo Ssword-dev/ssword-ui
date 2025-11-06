@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { ViteMono, ViteMonoConfig } from '.';
+import { ViteMono, ViteMonoConfig } from './vite-mono';
 import require from './require';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';

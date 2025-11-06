@@ -1,27 +1,77 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-/* no fileURLToPath required here */
+import os from 'node:os';
 import fg from 'fast-glob';
 import { Loader, transform } from 'esbuild';
 import require from './require';
+import { fileURLToPath } from 'node:url';
 
-interface ConfigurationLoader {
+// proxy __filename and __dirname globals
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// an object containing all the  impure states
+// of the script loader.
+const impureState = {
+	temp: null as string | null,
+	cleanupHooked: false,
+};
+
+interface ModuleLoader {
 	load(root: string, sourceFile: string): Promise<unknown>;
 }
 
-let temp: string | null = null;
-
 const tryMakeTemp = async () => {
-	if (temp) return;
+	if (impureState.temp) return;
 
-	const salt = crypto.randomBytes(3).toString('hex');
-	const tempFolder = `temp-${salt}`;
+	const suffix = crypto.randomBytes(3).toString('hex');
+	const tempDir = path.join(__dirname, `transpiled-${suffix}`);
 
-	temp = await fs.mkdtemp(tempFolder);
+	impureState.temp = tempDir;
+
+	await fs.mkdir(tempDir, {
+		recursive: true,
+	});
+
+	// after making temp folder for the transpiled scripts,
+	// try hooking into node's lifecycle to attatch cleanup to
+	// properly cleanup the temporary folder.
+	tryHookCleanupIntoNodeLifecycle();
 };
 
-const sha256 = (pt: string) => crypto.createHash('sha256').update(pt).digest();
+const tryDeleteTemp = async () => {
+	if (!impureState.temp) return;
+
+	try {
+		await fs.rm(impureState.temp, {
+			recursive: true,
+			force: true,
+		});
+	} catch (_) {
+		/* pass */
+	}
+};
+
+const cleanup = async () => {
+	await tryDeleteTemp();
+};
+
+const tryHookCleanupIntoNodeLifecycle = () => {
+	// only hook once.
+	if (impureState.cleanupHooked) return;
+
+	// enable the flag to sign to further calls that
+	// the hook is already installed.
+	impureState.cleanupHooked = true;
+
+	// attach into node's lifecycle.
+	process.on('beforeExit', () => {
+		cleanup();
+	});
+};
+
+const sha256 = (pt: string) => crypto.createHash('sha256').update(pt).digest().toString('hex');
 
 const importRawCode = async (code: string) => {
 	const hash = sha256(code);
@@ -29,7 +79,7 @@ const importRawCode = async (code: string) => {
 
 	await tryMakeTemp();
 
-	const absolutePath = path.join(temp!, fileName);
+	const absolutePath = path.join(impureState.temp!, fileName);
 
 	await fs.writeFile(absolutePath, code, {
 		encoding: 'utf-8',
@@ -38,7 +88,7 @@ const importRawCode = async (code: string) => {
 	return require(absolutePath);
 };
 
-const createJavascriptLoader = (): ConfigurationLoader => ({
+const createJavascriptLoader = (): ModuleLoader => ({
 	async load(root, sourceFile) {
 		const resolved = path.resolve(root, sourceFile);
 
@@ -56,7 +106,7 @@ const createJavascriptLoader = (): ConfigurationLoader => ({
 	},
 });
 
-const createLoaderWithESBuildLoader = (loader: Loader): ConfigurationLoader => ({
+const createLoaderWithESBuildLoader = (loader: Loader): ScriptLoader => ({
 	async load(root: string, sourceFile: string) {
 		const absPath = path.resolve(root, sourceFile);
 
@@ -67,19 +117,31 @@ const createLoaderWithESBuildLoader = (loader: Loader): ConfigurationLoader => (
 		const { code: transpiledCode } = await transform(code, {
 			loader,
 			minify: true,
+			sourcefile: absPath,
 		});
 
 		return importRawCode(transpiledCode);
 	},
 });
 
+// loaders
+// these loaders actually implement the rest of the logic
+// for loading modules.
 const JavascriptLoader = createJavascriptLoader();
 const JavascriptXMLLoader = createLoaderWithESBuildLoader('jsx');
-const JSONLoader = createLoaderWithESBuildLoader('json');
+const JSONLoader: ModuleLoader = {
+	async load(root: string, sourceFile: string) {
+		const absPath = path.resolve(root, sourceFile);
+		const code = await fs.readFile(absPath, { encoding: 'utf-8' });
+		return JSON.parse(code);
+	},
+};
 const TypescriptLoader = createLoaderWithESBuildLoader('ts');
 const TypescriptXMLLoader = createLoaderWithESBuildLoader('tsx');
 
-const loaders: Record<string, ConfigurationLoader | null> = {
+// a map of loaders to define what to use for loading
+// specific loaders.
+const loaders: Record<string, ModuleLoader | null> = {
 	js: JavascriptLoader,
 	jsx: JavascriptXMLLoader,
 	json: JSONLoader,
@@ -92,10 +154,7 @@ const loaders: Record<string, ConfigurationLoader | null> = {
  * using the appropriate loader based on file extension.
  * Returns the loaded configuration or null when none found.
  */
-export async function loadConfigurationFromFile<CT>(
-	root: string,
-	pattern: string | string[],
-): Promise<CT | null> {
+export async function loadModule<CT>(root: string, pattern: string | string[]): Promise<CT | null> {
 	const patterns = Array.isArray(pattern) ? pattern : [pattern];
 
 	const entries = await fg(patterns, {
