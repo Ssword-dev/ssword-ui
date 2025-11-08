@@ -11,14 +11,29 @@ const logFormats = {
 type LogLevel = keyof typeof logFormats;
 
 class Logger {
+	static globalLogger: Logger | null = null;
+
 	hasOnceWarnLogged: boolean;
 	hasOnceErrorLogged: boolean;
 	warnOnceCache: Set<string>;
+
+	global: boolean;
+
+	static ofGlobal() {
+		if (!this.globalLogger) {
+			const globalLogger = new Logger();
+			globalLogger.global = true;
+			this.globalLogger = globalLogger;
+		}
+
+		return this.globalLogger;
+	}
 
 	constructor() {
 		this.warnOnceCache = new Set<string>();
 		this.hasOnceWarnLogged = false;
 		this.hasOnceErrorLogged = false;
+		this.global = false;
 	}
 
 	hasWarned() {

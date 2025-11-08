@@ -1,7 +1,6 @@
 import { defineConfig, type PluginOption } from 'vite';
 import { isBuiltin } from 'node:module';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const shebangGenerator: PluginOption = {
 	name: 'shebang-generator',

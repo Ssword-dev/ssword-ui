@@ -1,37 +1,7 @@
-import path from 'node:path';
 import { z } from 'zod';
-import require from './require';
 import { isBuiltin } from 'node:module';
 import semverValid from 'semver/functions/valid';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface JSONSchema extends z.ZodType<JSONValue> {}
-
-type JSONValue = string | number | boolean | null | { [key: string]: JSONValue } | JSONValue[];
-
-export const JSONSchema: JSONSchema = z.lazy(() =>
-	z.union([
-		z.string(),
-		z.number(),
-		z.boolean(),
-		z.null(),
-		z.record(z.string(), JSONSchema),
-		z.array(JSONSchema),
-	]),
-);
-
-const json: () => JSONSchema = () =>
-	z.union([
-		z.string(),
-		z.number(),
-		z.boolean(),
-		z.null(),
-		z.record(
-			z.string(),
-			z.lazy(() => json()),
-		),
-		z.array(z.lazy(() => json())),
-	]) as unknown as JSONSchema;
+import { JSONSchema } from './json.schema';
 
 const PackageSemVerSchema = z.string().superRefine((ver, context) => {
 	const validity = semverValid(ver);
@@ -76,25 +46,26 @@ const RepositoryObjectSchema = z.object({
 });
 
 // Schema for RepositoryField (string or RepositoryObject)
-export const RepositoryFieldSchema = z.union([z.string(), RepositoryObjectSchema]);
+const RepositoryFieldSchema = z.union([z.string(), RepositoryObjectSchema]);
 
 // Schema for BugsField
-export const BugsFieldSchema = z.object({
+
+const BugsFieldSchema = z.object({
 	url: z.string().optional(),
 	email: z.string().optional(),
 });
 
-// Schema for Person (string or object)
-const PersonSchema = z.union([
-	z.string(),
-	z.object({
-		name: z.string(),
-		email: z.string().optional(),
-		url: z.string().optional(),
-	}),
-]);
+const PersonObjectSchema = z.object({
+	name: z.string(),
+	email: z.string().optional(),
+	url: z.string().optional(),
+});
 
-// Schema for DependenciesMap and similar record types
+// schema for a person (string or object)
+// usually
+const PersonSchema = z.union([z.string(), PersonObjectSchema]);
+
+// schema for DependenciesMap and similar record types
 const DependenciesMapSchema = z.record(z.string(), z.string());
 
 type ExportFieldType = string | ExportFieldMap;
@@ -103,7 +74,7 @@ interface ExportFieldMap {
 	[key: string]: ExportFieldType | ExportFieldMap;
 }
 
-// Schema for complex nested ExportsField
+// schema for complex nested ExportsField
 const ExportsFieldSchema: z.ZodType<ExportFieldType> = z.lazy(() =>
 	z.union([
 		z.string(),
@@ -124,7 +95,7 @@ const WorkspacesFieldSchema = z.union([
 export const PackageJSONSchema = z
 	.object({
 		// Identity
-		name: PackageNameSchema,
+		name: PackageNameSchema.optional(),
 		version: PackageSemVerSchema.optional(),
 		private: z.boolean().optional(),
 		type: ModuleTypeSchema.optional(),
@@ -164,6 +135,6 @@ export const PackageJSONSchema = z
 		// Workspaces / monorepo
 		workspaces: WorkspacesFieldSchema.optional(),
 	})
-	.catchall(json()); /** allow arbitrary JSON values. */
+	.catchall(JSONSchema); /** allow arbitrary JSON values. */
 
 export type PackageJSON = z.infer<typeof PackageJSONSchema>;

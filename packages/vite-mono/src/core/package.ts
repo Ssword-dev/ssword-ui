@@ -1,11 +1,9 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import { z } from 'zod';
 import require from './require';
-import { isBuiltin } from 'node:module';
-import semverValid from 'semver/functions/valid';
 import { type PackageJSON, PackageJSONSchema } from '../schema/package-json.schema';
 import { validate } from './validate';
+import SchemaValidationError from '../error/schema-validation-error';
 
 /**
  * Load a package.json for a package name or an absolute directory path.
@@ -22,7 +20,7 @@ export function loadPackageJSON(nameOrPath: string): PackageJSON | null {
 		const pkg = JSON.parse(raw) as unknown;
 
 		if (!validate(pkg, PackageJSONSchema)) {
-			throw new Error('Invalid package.json error.');
+			throw new SchemaValidationError('Invalid package.json error.');
 		}
 	}
 	try {

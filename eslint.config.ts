@@ -28,6 +28,20 @@ export default defineConfigWithVueTs(
 			// to be multi word. this is too restrictive for
 			// library development.
 			'vue/multi-word-component-names': 'off',
+
+			// allow variables / arguments / caught errors / rest siblings
+			// properties to be unused as long as prepended with an underscore.
+			// not having this on is annoying when just wanting to use some parameters
+			// passed to a function and not all of them.
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					argsIgnorePattern: '^_', // ignore unused function arguments starting with an underscore
+					varsIgnorePattern: '^_', // ignore unused variables starting with an underscore
+					caughtErrorsIgnorePattern: '^_', // ignore unused caught errors starting with an underscore
+					ignoreRestSiblings: true, // optionally, ignore rest siblings in object destructuring
+				},
+			],
 		},
 	},
 

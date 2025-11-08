@@ -1,5 +1,8 @@
 class NamedError extends Error {
 	constructor(message: string) {
-		this.message;
+		super(message);
+		this.name = this.constructor.name;
 	}
 }
+
+export default NamedError;

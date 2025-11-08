@@ -1,8 +1,8 @@
-import path from 'node:path';
 import fg from 'fast-glob';
 import { format } from 'node:util';
 import { loadPackageJSON } from './package';
 import type { Compilation } from './types';
+import { PackageJSON } from '../schema/package-json.schema';
 
 export const messages = {
 	'config-not-found':
@@ -11,8 +11,8 @@ export const messages = {
 	'source-resolution-error': "Cannot resolve the source directory for '%s'.",
 };
 
-export function readPackageJSON(dir: string) {
-	return loadPackageJSON(dir) ?? ({} as any);
+export function readPackageJSON(dir: string): PackageJSON {
+	return loadPackageJSON(dir) ?? {};
 }
 
 export const globFiles = (root: string, pattern: string | string[]) =>

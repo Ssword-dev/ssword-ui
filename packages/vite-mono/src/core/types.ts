@@ -1,5 +1,8 @@
+import { PackageJSON } from '../schema/package-json.schema';
 import Logger from './logger';
 import { UserConfig } from 'vite';
+
+export type PromiseOr<T> = T | Promise<T>;
 
 export interface ViteMonoConfig {
 	root: string;
@@ -30,7 +33,7 @@ export interface Workspace {
 
 export interface CompilationContext {
 	root: string;
-	package?: Promise<any> | null;
+	package?: Promise<PackageJSON> | null;
 	temp?: string | null;
 	cleanupHooked?: boolean;
 }

@@ -2,12 +2,13 @@
   "type": "module",
   "name": "@ssword/vite-mono",
   "scripts": {
-    "build": "yarn vite build",
+    "build": "rollup -c",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
   "packageManager": "yarn@4.6.0",
   "devDependencies": {
+    "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -24,6 +25,7 @@
   "dependencies": {
     "chalk": "^5.6.2",
     "esbuild": "^0.25.12",
+    "esbuild-plugin-replace": "^1.4.0",
     "fast-glob": "^3.3.3",
     "fsevents": "^2.3.3",
     "rollup": "^4.52.5",
