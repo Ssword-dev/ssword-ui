@@ -7,7 +7,7 @@
 
 <template>
 	<button
-		class="button px-4 py-2 text-base rounded-md border text-text bg-primary border-border transition-all duration-200 ease-in-out hover:bg-accent hover:border-accent-strong hover:cursor-pointer active:scale-105 active:bg-accent active:border-accent-strong"
+		class="inline-flex flex-row items-center button px-4 py-2 text-base rounded-md border text-text bg-primary border-border transition-all duration-200 ease-in-out hover:bg-accent hover:border-accent-strong hover:cursor-pointer active:scale-105 active:bg-accent active:border-accent-strong"
 		v-bind="attrs"
 	>
 		<slot />

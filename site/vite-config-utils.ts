@@ -33,7 +33,6 @@ async function mapWorkspacesDev(root: string) {
 		}),
 	);
 
-	console.log(JSON.stringify(aliasEntries));
 	return Object.fromEntries(aliasEntries);
 }
 

@@ -1,0 +1,82 @@
+{
+	// folders.
+	"folders": [
+		{
+			"name": "site",
+			"path": "./site",
+		},
+
+		{
+			"name": "ui-vue",
+			"path": "./packages/ui-vue",
+		},
+
+		{
+			"name": "root",
+			"path": ".",
+		},
+	],
+
+	// settings.json replacement.
+	"settings": {
+		"search.exclude": {
+			"**/.yarn": true,
+			"**/.pnp.*": true,
+		},
+
+		"eslint.nodePath": ".yarn/sdks",
+
+		"prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+
+		"typescript.tsdk": ".yarn/sdks/typescript/lib",
+
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/.yarn": true,
+		},
+
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+
+		// combination of these together is just...
+		// perfect.
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+
+		"window.commandCenter": true,
+	},
+
+	// launch.json replacement.
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [],
+	},
+
+	// extensions.json replacement
+	"extensions": {
+		"recommendations": ["arcanis.vscode-zipfs", "dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+	},
+
+	// tasks.json replacement.
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Run Development Server",
+				"command": "yarn",
+				"args": ["dev"],
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": false,
+					"panel": "shared",
+					"showReuseMessage": true,
+					"clear": false,
+				},
+			},
+		],
+	},
+}

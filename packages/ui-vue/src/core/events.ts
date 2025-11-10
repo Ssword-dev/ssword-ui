@@ -49,7 +49,7 @@ export interface SyntheticEventConstructor {
  * An event dispatcher tied to a component instance.
  */
 interface EventDispatcher {
-	dispatch<E extends Event>(type: string, metadataOrEvent: E): SyntheticEvent<{}, E>;
+	dispatch<E extends Event>(type: string, metadataOrEvent: E): SyntheticEvent<object, E>;
 	dispatch<M extends object>(type: string, metadataOrEvent: M): SyntheticEvent<M, Event>;
 }
 

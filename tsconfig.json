@@ -3,19 +3,19 @@
 	"files": [],
 	"references": [
 		{
-			"path": "./tsconfig.virtual.json"
+			"path": "./config/typescript/tsconfig.virtual.json"
 		},
-    {
-      "path": "./tsconfig.tests.json"
-    },
-    {
-      "path": "./packages/vite-mono/tsconfig.json"
-    },
+		{
+			"path": "./config/typescript/tsconfig.tests.json"
+		},
+		{
+			"path": "./config/typescript/tsconfig.node.json"
+		},
 		{
 			"path": "./packages/ui-vue/tsconfig.json"
 		},
 		{
-			"path": "./projects/playground/tsconfig.json"
+			"path": "./site/tsconfig.json"
 		}
 	]
 }

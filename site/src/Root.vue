@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 	import { RouterView } from 'vue-router';
 	import ThemeProvider from './providers/ThemeProvider.vue';
 </script>

@@ -1,5 +1,5 @@
-<script lang="tsx" setup>
-	defineProps<{ label: string }>();
+<script lang="ts" setup>
+	defineProps<{ label?: string }>();
 </script>
 
 <template>

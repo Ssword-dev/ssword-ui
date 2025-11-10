@@ -3,10 +3,38 @@
 		"**/.yarn": true,
 		"**/.pnp.*": true
 	},
-	"eslint.nodePath": ".yarn/sdks",
-	"prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
-	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+
+	"npm.packageManager": "pnpm",
+
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+
+		// yarn stuff.
+		"**/.yarn": true,
+		"**/yarn.lock": true,
+
+		// yarn berry PnP
+		"**/.pnp.cjs": true,
+		"**/.pnp.loader.mjs": true,
+
+		// build related stuff.
+		"**/.turbo": true,
+		// "**/node_modules": true,
+		// "**/dist": true,
+
+		// eslint
+		"**/.eslintcache": true
+	},
+
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+
+	// combination of these together is just...
+	// perfect.
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

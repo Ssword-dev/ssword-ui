@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="post-hero-section-sample"><slot /></div>
+	<div class="post-hero-section-sample flex flex-col justify-center items-center"><slot /></div>
 </template>
 
 <style scoped>

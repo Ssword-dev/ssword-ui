@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { isRef, computed, ref, useAttrs, type ButtonHTMLAttributes } from 'vue';
+	import { ref, useAttrs, type ButtonHTMLAttributes } from 'vue';
 	import eventManager from '../../core/events';
 
 	export interface BinaryChangeEventMetadata {

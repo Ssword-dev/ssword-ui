@@ -1,4 +1,4 @@
-import { computed, ref, type ComputedRef, type Ref } from 'vue';
+import { computed, type ComputedRef } from 'vue';
 import type { CardActionOrientationHint } from './types';
 
 const shared = {

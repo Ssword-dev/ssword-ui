@@ -11,11 +11,15 @@
 			'post-hero-section min-h-screen',
 			'bg-background text-text transition-colors duration-500',
 			'gap-6',
+
+			// child styles
+			'[&>*]:p-4',
+
 			// default styles
 			'[&>.post-hero-section-sample]:hidden',
 
 			// medium above
-			'sm:[&>.post-hero-section-sample]:block',
+			'md:[&>.post-hero-section-sample]:block',
 		]"
 	>
 		<slot />
@@ -30,14 +34,15 @@
 		grid-template-areas: 'view-panel';
 	}
 
-	.post-hero-section[data-layout='swapped'] {
-		grid-template-areas: 'sample-panel view-panel';
-	}
-
 	@media screen and (width >= 40rem) {
 		.post-hero-section {
 			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
 			grid-template-areas: 'view-panel sample-panel';
+		}
+
+		.post-hero-section[data-layout='swapped'] {
+			grid-template-areas: 'sample-panel view-panel';
 		}
 	}
 </style>

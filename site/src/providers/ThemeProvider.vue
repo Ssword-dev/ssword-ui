@@ -7,6 +7,7 @@
 	const headObserver = new MutationObserver((mutationList) => {
 		resilienceCallback(mutationList);
 	});
+
 	const cachedThemes = computed(() => new Map<string, string>());
 	const theme = themeStore();
 
@@ -59,7 +60,7 @@
 				for (const removedNode of mutation.removedNodes) {
 					if (
 						removedNode instanceof Element &&
-						removedNode.tagName === 'style' &&
+						removedNode.tagName.toLowerCase() === 'style' &&
 						removedNode.getAttribute('id') === 'theme-style'
 					) {
 						repairStyle();

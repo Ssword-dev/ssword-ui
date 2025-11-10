@@ -6,9 +6,11 @@ plus, its css-first configuration means all style related
 custommizations can be done in this very file.
 */
 
-@import "tailwindcss";
-@import "@ssword/ui-vue/styles/index.css";
+@source "../components";
+@source "../../../packages/ui-vue/src";
 
+@import "tailwindcss";
+@import "@ssword-ui/vue/styles/index.css";
 
 body {
     width: 100vw;
