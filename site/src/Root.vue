@@ -1,12 +1,13 @@
 ﻿<script setup lang="ts">
 	import { RouterView } from 'vue-router';
-	import ThemeProvider from './providers/ThemeProvider.vue';
+	import Header from '@/components/Header';
+	import Footer from '@/components/Footer';
 </script>
 
 <template>
-	<ThemeProvider>
+	<Header />
+	<main class="h-full w-full overflow-x-hidden">
 		<RouterView />
-	</ThemeProvider>
+	</main>
+	<Footer />
 </template>
-
-<style scoped></style>

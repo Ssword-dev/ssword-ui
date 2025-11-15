@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import { Card, CardActionTray, CardAction, CardContent, CardTitle, Button } from '@ssword/ui-vue';
+	import { CodeIcon } from 'lucide-vue-next';
+	import { Card, CardContent, CardTitle, Button, CardFooter } from '@ssword-ui/vue';
 </script>
 
 <template>
@@ -9,7 +10,7 @@
 			Get started with ssword-ui in minutes. Comprehensive documentation, TypeScript support, and
 			easy customization await.
 		</CardContent>
-		<CardActionTray class="flex flex-wrap gap-4 pt-4">
+		<CardFooter class="flex flex-wrap gap-4 pt-4">
 			<Button
 				size="lg"
 				class="bg-primary text-white px-6"
@@ -23,6 +24,6 @@
 			>
 				Component Docs
 			</Button>
-		</CardActionTray>
+		</CardFooter>
 	</Card>
 </template>

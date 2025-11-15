@@ -13,7 +13,7 @@
 			'gap-6',
 
 			// child styles
-			'[&>*]:p-4',
+			'*:p-4',
 
 			// default styles
 			'[&>.post-hero-section-sample]:hidden',
@@ -34,7 +34,7 @@
 		grid-template-areas: 'view-panel';
 	}
 
-	@media screen and (width >= 40rem) {
+	@media screen and (width >= 48rem) {
 		.post-hero-section {
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 1fr;

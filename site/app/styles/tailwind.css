@@ -7,10 +7,10 @@ custommizations can be done in this very file.
 */
 
 @source "../components";
-@source "../../../packages/ui-vue/src";
+@source "../../../packages/ui-vue/src/**/*.{vue,tsx}";
 
 @import "tailwindcss";
-@import "@ssword-ui/vue/styles/index.css";
+@import "@ssword-ui/vue/styles/tailwind.css";
 
 body {
     width: 100vw;
@@ -42,7 +42,7 @@ body {
 }
 
 #app {
-    min-height: 100%;
+    height: 100vh;
     width: 100%;
 }
 
