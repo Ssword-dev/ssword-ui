@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import eventManager from '../../../../packages/ui-vue/src/core/events';
-import type { SyntheticEvent } from '../../../..//packages/ui-vue/src/core/events';
+import eventManager from '../../../../packages/ui-vue/src/events';
+import type { SyntheticEvent } from '../../../../packages/ui-vue/src/events';
 import { defineComponent, h } from 'vue';
 import { render } from '@testing-library/vue';
 import { mount } from '@vue/test-utils';

@@ -1,7 +1,11 @@
 packages:
   - packages/*
-  - site
+
+  # packages/dev is used for configuration in
+  # monorepo.
+  - !packages/dev
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
+  - better-sqlite3
   - esbuild

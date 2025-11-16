@@ -1,0 +1,31 @@
+{
+	// library base configuration.
+	// specifies no specific Ecmascript
+	// specification version.
+	"compilerOptions": {
+		// default typescript
+		// strictness.
+		"strict": true,
+
+		// do not emit anything.
+		"noEmit": true,
+
+		// all non-declaration files is a module.
+		"moduleDetection": "force",
+
+		// include javascript files
+		// on typechecking.
+		"checkJs": true,
+
+		// eslint already yells at me for this.
+		"importsNotUsedAsValues": "remove",
+
+		// skip typechecking non source files.
+		// these keeps builds fast.
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+
+		// we are using a bundler.
+		"moduleResolution": "bundler"
+	}
+}

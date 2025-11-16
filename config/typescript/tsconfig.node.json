@@ -7,7 +7,7 @@
 		"playwright.config.*",
 		"eslint.config.*",
 		"vitest.config.ts",
-		"../../eslint.config.ts",
+		"../eslint/eslint.config.ts",
 		"vite.config.ts"
 	],
 	"compilerOptions": {

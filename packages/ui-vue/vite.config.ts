@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { dirname } from 'node:path';
@@ -15,6 +16,14 @@ const formatExtensions = {
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [
+		viteStaticCopy({
+			targets: [
+				{
+					src: './src/styles/**/*',
+					dest: './styles',
+				},
+			],
+		}),
 		vue({
 			style: {
 				trim: true,
@@ -38,6 +47,15 @@ export default defineConfig({
 		rollupOptions: {
 			external: ['vue'],
 			output: {
+				// keep original file structure
+				preserveModules: true,
+				preserveModulesRoot: 'src',
+
+				// directory structure for individual imports
+				entryFileNames: '[name].[format].js',
+				chunkFileNames: '[name]-[hash].[format].js',
+				assetFileNames: '[name].[ext]',
+
 				globals: {
 					vue: 'Vue',
 				},
