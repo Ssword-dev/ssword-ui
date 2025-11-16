@@ -31,7 +31,7 @@
 					<Button
 						size="lg"
 						class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-						onClick="gotoGetStarted"
+						@click="gotoGetStarted"
 					>
 						<RocketIcon class="w-5 h-5 mr-2" />
 						<Text>Get Started</Text>
@@ -40,22 +40,22 @@
 					<Button
 						size="lg"
 						class="border-2 border-border-muted px-8 py-3 rounded-lg transition-all duration-300 hover:bg-muted/50"
-						onClick="viewOnGithub"
+						@click="viewOnGithub"
 					>
 						<GithubIcon class="w-5 h-5 mr-2" />
 						View on GitHub
 					</Button>
 
-					<Button
+					<!-- <Button
 						size="lg"
 						class="px-6 py-3 rounded-lg transition-all duration-300 bg-transparent hover:bg-muted/30"
-						onClick="handleThemeToggle"
+						@click="handleThemeToggle"
 					>
 						<LightbulbIcon
 							:class="`w-5 h-5 mr-2 ${themeSettings.mode === 'dark' ? 'text-yellow-400' : 'text-blue-400'}`"
 						/>
 						{{ themeSettings.mode === 'dark' ? 'Light' : 'Dark' }} Mode
-					</Button>
+					</Button> -->
 				</div>
 			</div>
 
@@ -115,19 +115,19 @@
 
 						<CardFooter class="bg-muted/50 p-2 rounded-lg gap-1 [&>.activateable]:aspect-square">
 							<Activatable
-								@change="handleBoldFeatureToggle"
+								@toggle="handleBoldFeatureToggle"
 								:class="`transition-colors duration-200 hover:scale-105 ${boldFlag ? 'bg-primary text-white' : ''}`"
 							>
 								<BoldIcon class="w-4 h-4" />
 							</Activatable>
 							<Activatable
-								@change="handleItalicFeatureToggle"
+								@toggle="handleItalicFeatureToggle"
 								:class="`transition-colors duration-200 hover:scale-105 ${italicFlag ? 'bg-primary text-white' : ''}`"
 							>
 								<ItalicIcon class="w-4 h-4" />
 							</Activatable>
 							<Activatable
-								@change="handleStrikeThroughFeatureToggle"
+								@toggle="handleStrikeThroughFeatureToggle"
 								:class="`transition-colors duration-200 hover:scale-105 ${strikeThroughFlag ? 'bg-primary text-white' : ''}`"
 							>
 								<StrikethroughIcon class="w-4 h-4" />
@@ -191,9 +191,6 @@
 				<component :is="Section.sample" />
 			</PostHeroSectionSample>
 		</PostHeroSection>
-
-		<!-- Footer -->
-		<Header />
 	</article>
 </template>
 
@@ -285,9 +282,9 @@
 	const handleStrikeThroughFeatureToggle = stateToggler(strikeThroughFlag);
 	const handlePremiumToggle = stateToggler(premiumFeature);
 
-	const handleThemeToggle = () => {
-		themeSettings.setTheme(themeSettings.mode === 'dark' ? 'light' : 'dark');
-	};
+	// const handleThemeToggle = () => {
+	// 	themeSettings.setTheme(themeSettings.mode === 'dark' ? 'light' : 'dark');
+	// };
 
 	const gotoGetStarted = () => scroll('#get-started');
 	const viewOnGithub = () => window.open(githubLink, '_blank');

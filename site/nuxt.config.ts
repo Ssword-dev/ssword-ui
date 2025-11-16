@@ -16,15 +16,19 @@ export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
 	devtools: { enabled: true },
 
+	alias: {
+		...(process.env.NODE_ENV !== 'production' ? virtualWorkspaceModules(projectRoot) : {}),
+	},
+
 	// vite
 	vite: {
-		resolve: {
-			alias: {
-				'@': appRoot,
-				...(process.env.NODE_ENV !== 'production' ? virtualWorkspaceModules(projectRoot) : {}),
-			},
-		},
-
 		plugins: [tailwind()],
 	},
+
+	devServer: {
+		host: 'localhost',
+		port: 80,
+	},
+
+	modules: ['@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
 });

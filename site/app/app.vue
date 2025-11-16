@@ -1,12 +1,23 @@
-<script lang="ts">
+<script setup lang="ts">
 	import './styles/tailwind.css';
-	import Header from '@/components/Header';
-	import Footer from '@/components/Footer';
+	import { useNuxtApp } from '#app';
+	import { theme } from '@ssword-ui/vue';
+
+	useHeadSafe({
+		link: [
+			{
+				href: '/themes/dark.css',
+				rel: 'stylesheet',
+			},
+		],
+	});
 </script>
 
 <template>
-	<NuxtLayout>
-		<LazyNuxtPage />
-	</NuxtLayout>
-	<NuxtRouteAnnouncer />
+	<Body>
+		<NuxtLayout>
+			<LazyNuxtPage />
+		</NuxtLayout>
+		<NuxtRouteAnnouncer />
+	</Body>
 </template>

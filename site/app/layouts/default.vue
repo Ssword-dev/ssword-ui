@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 	import Header from '@/components/Header';
 	import Footer from '@/components/Footer';
 </script>
