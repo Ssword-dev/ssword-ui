@@ -8,7 +8,7 @@ import tailwind from '@tailwindcss/vite';
 import { virtualWorkspaceModules } from './vite-config-utils';
 import { nodeModuleNameResolver } from 'typescript';
 
-const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+const projectRoot = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const siteRoot = resolve(dirname(fileURLToPath(import.meta.url)));
 const appRoot = resolve(siteRoot, './app');
 
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
 
 	envDir: './env',
 
-	modules: ['@nuxt/kit', '@nuxt/content', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
+	modules: ['@nuxt/content', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
 
 	// module configurations
 });

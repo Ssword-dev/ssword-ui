@@ -1,9 +1,6 @@
 packages:
   - packages/*
-
-  # packages/dev is used for configuration in
-  # monorepo.
-  - !packages/dev
+  - '!packages/dev'
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
