@@ -13,6 +13,7 @@
     "d": "pnpm dev"
   },
   "devDependencies": {
+    "@nx/devkit": "^22.0.4",
     "@testing-library/vue": "^8.1.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^27.0.0",

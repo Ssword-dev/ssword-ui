@@ -1,0 +1,19 @@
+
+	.post-hero-section {
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr;
+		grid-template-areas: 'view-panel';
+	}
+
+	@media screen and (width >= 48rem) {
+		.post-hero-section {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
+			grid-template-areas: 'view-panel sample-panel';
+		}
+
+		.post-hero-section[data-layout='swapped'] {
+			grid-template-areas: 'sample-panel view-panel';
+		}
+	}

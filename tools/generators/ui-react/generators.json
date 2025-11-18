@@ -1,0 +1,9 @@
+{
+  	"generators": {
+		"component": {
+			"factory": "./component/generator",
+			"schema": "./component/schema.json",
+			"description": "generate a ui-react component"
+		}
+	}
+}
