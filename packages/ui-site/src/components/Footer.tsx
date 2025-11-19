@@ -1,4 +1,4 @@
-import { Text } from '@ssword-ui/react;
+import { Text } from '@ssword-ui/react';
 import { FC } from 'react';
 
 const Footer: FC = () => (

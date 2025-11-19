@@ -31,9 +31,11 @@ const Header = () => (
 
 				<div className="flex self-end gap-6 h-full px-2 text-text-muted text-lg">
 					{routerLinks.map((rl) => (
-						<div className="px-4 py-2">
+						<div
+							className="px-4 py-2"
+							key={rl.label}
+						>
 							<Link
-								key={rl.label}
 								href={rl.to}
 								className="select-none hover:text-primary transition-colors"
 							>
@@ -43,7 +45,10 @@ const Header = () => (
 					))}
 
 					{hyperLinks.map((hl) => (
-						<div className="px-4 py-2">
+						<div
+							className="px-4 py-2"
+							key={hl.label}
+						>
 							<a
 								href="#"
 								className="select-none hover:text-primary transition-colors"

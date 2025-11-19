@@ -6,17 +6,25 @@
 			"outputs": ["{projectRoot}/dist/**"],
 			"cache": true
 		},
+
+		"clean": {
+			"cache": false,
+			"parallelism": true
+		},
+
 		"lint": {
 			"cache": true
 		},
+
 		"dev": {
 			"cache": false
 		},
+
 		"test": {
 			"dependsOn": ["build"],
 			"cache": true
 		}
 	},
 
-	"plugins": ["./tools/generators/ui-react"]
+	"plugins": []
 }

@@ -22,3 +22,5 @@ const PostHeroSection: FC<PropsWithChildren<{ swap?: boolean }>> = ({ children, 
 		{children}
 	</section>
 );
+
+export default PostHeroSection;
