@@ -34,12 +34,14 @@
 		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
+		"@nx/vite": "^22.1.1",
 		"@tsconfig/node22": "^22.0.3",
 		"@types/jsdom": "^27.0.0",
 		"@types/node": "^22.19.1",
 		"@types/react": "^19.2.6",
 		"@types/react-dom": "^19.2.3",
 		"@vitest/eslint-plugin": "^1.4.2",
+		"@workspace/typescript": "workspace:^",
 		"eslint": "^9.39.1",
 		"jiti": "^2.6.1",
 		"jsdom": "^27.2.0",
@@ -47,8 +49,10 @@
 		"prettier": "3.6.2",
 		"react": "19.2.0",
 		"react-dom": "19.2.0",
+		"rollup": "^4.53.3",
 		"typescript": "~5.9.3",
 		"vite": "^7.2.2",
+		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-static-copy": "^3.1.4",
 		"vitest": "^3.2.4"
 	}

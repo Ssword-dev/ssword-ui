@@ -11,7 +11,7 @@ const config: WithNxOptions = {
 
 	reactCompiler: true,
 
-	transpilePackages: ['@ssword-ui/react', '@ssword/utils'],
+	transpilePackages: ['@ssword-ui/react', '@ssword/utils', '@ssword/utils-dom'],
 
 	experimental: {
 		externalDir: true,

@@ -28,15 +28,6 @@ export default defineConfig({
 			formats: ['es', 'cjs'], // build both ESM and CJS
 		},
 
-		rollupOptions: {
-			external: ['vue'],
-			output: {
-				globals: {
-					vue: 'Vue',
-				},
-			},
-		},
-
 		sourcemap: true,
 		emptyOutDir: true,
 	},

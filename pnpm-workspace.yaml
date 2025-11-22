@@ -6,9 +6,11 @@ packages:
 linkWorkspacePackages: true
 
 onlyBuiltDependencies:
+  - '@parcel/watcher'
   - '@swc/core'
   - esbuild
   - nx
   - sharp
+  - unrs-resolver
 
 strictPeerDependencies: true

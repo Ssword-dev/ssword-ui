@@ -1,8 +1,12 @@
 {
-	"name": "utils-dom",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "utils-dom/src",
+	"name": "@ssword-ui/react",
+
 	"projectType": "library",
+	"metadata": {
+		"description": "An expressive UI Library for ReactJS"
+	},
+
 	"release": {
 		"version": {
 			"manifestRootsToUpdate": ["dist/{projectRoot}"],
@@ -10,7 +14,9 @@
 			"fallbackCurrentVersionResolver": "disk"
 		}
 	},
+
 	"tags": [],
+
 	"targets": {
 		"build": {
 			"executor": "@nx/esbuild:esbuild",

@@ -6,7 +6,7 @@
 		"dev/nx/plugins/*"
 	],
 	"scripts": {
-		"dev": "pnpm --filter=@ssword-ui/site run dev",
+		"dev": "pnpm --filter=@apps/ui run dev",
 		"build": "nx build",
 		"format": "turbo format",
 		"lint": "turbo lint",
@@ -18,7 +18,6 @@
 		"@nx/esbuild": "22.1.1",
 		"@nx/eslint": "22.1.1",
 		"@nx/eslint-plugin": "22.1.1",
-		"@nx/jest": "22.1.1",
 		"@nx/js": "22.1.1",
 		"@swc-node/register": "~1.9.1",
 		"@swc/core": "~1.5.7",

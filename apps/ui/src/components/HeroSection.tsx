@@ -45,8 +45,11 @@ function HeroSection() {
 		themeContext.setThemeMode((m) => (m === 'dark' ? 'light' : 'dark'));
 		// if you have a global theme provider, call it here instead
 	}, []);
-	const gotoGetStarted = useCallback(() => scrollToHash('#get-started'), []);
-	const viewOnGithub = useCallback(() => window.open(githubLink, '_blank'), []);
+	const gotoGetStarted = useCallback(() => scrollTo('#get-started'), []);
+	const viewOnGithub = useCallback(
+		() => window.open('https://github.com/Ssword-dev/ssword-js', '_blank'),
+		[],
+	);
 
 	const formatActiveFeatures = useMemo(() => {
 		const activeFeatures = [
@@ -58,7 +61,7 @@ function HeroSection() {
 	}, [boldFlag, italicFlag, strikeThroughFlag]);
 
 	return (
-		<section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-muted/20 to-background text-text transition-all duration-500 px-4">
+		<section className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-background via-muted/20 to-background text-text transition-all duration-500 px-4">
 			<div className="max-w-4xl text-center space-y-8">
 				<div className="flex items-center justify-center gap-4 mb-6">
 					<div className="relative">
@@ -66,7 +69,7 @@ function HeroSection() {
 						<div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
 					</div>
 
-					<h1 className="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+					<h1 className="text-5xl sm:text-6xl font-bold tracking-tight bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
 						ssword-ui
 					</h1>
 				</div>

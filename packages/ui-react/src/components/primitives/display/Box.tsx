@@ -1,4 +1,4 @@
-import { cvm } from '@ssword/utils';
+import { cvm } from '@ssword/utils-dom';
 import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const boxVM = cvm('inline p-2', {

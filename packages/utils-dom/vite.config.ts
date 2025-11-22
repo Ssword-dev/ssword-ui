@@ -1,9 +1,9 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-
-import path from 'path';
 import { dirname } from 'node:path';
+import path from 'node:path';
+
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,13 +16,8 @@ const formatExtensions = {
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [
-		viteStaticCopy({
-			targets: [
-				{
-					src: './src/styles/**/*',
-					dest: './styles',
-				},
-			],
+		dts({
+			tsconfigPath: 'tsconfig.lib.json',
 		}),
 	],
 	resolve: {
@@ -50,10 +45,6 @@ export default defineConfig({
 				entryFileNames: '[name].[format].js',
 				chunkFileNames: '[name]-[hash].[format].js',
 				assetFileNames: '[name].[ext]',
-
-				globals: {
-					vue: 'Vue',
-				},
 			},
 		},
 

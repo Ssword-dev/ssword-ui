@@ -1,4 +1,4 @@
-import { cvm, InferVariantPropsWithClass } from '@ssword/utils';
+import { cvm, InferVariantPropsWithClass } from '@ssword/utils-dom';
 import { JSX, PropsWithChildren } from 'react';
 
 export type SimpleCompositionPrimitiveComponentProps<

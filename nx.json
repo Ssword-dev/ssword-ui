@@ -19,11 +19,6 @@
 		"test": {
 			"dependsOn": ["build"],
 			"cache": true
-		},
-		"@nx/esbuild:esbuild": {
-			"cache": true,
-			"dependsOn": ["^build"],
-			"inputs": ["default", "^default"]
 		}
 	},
 	"workspaceLayout": {
@@ -43,10 +38,7 @@
 			}
 		},
 		{
-			"plugin": "@nx/jest/plugin",
-			"options": {
-				"targetName": "test"
-			}
+			"plugin": "@nx/vite/plugin"
 		}
 	]
 }

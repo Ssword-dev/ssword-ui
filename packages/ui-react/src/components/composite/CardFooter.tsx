@@ -1,4 +1,4 @@
-import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils';
+import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils-dom';
 import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const cardFooterVM = cvm('flex items-center px-6 [.border-t]:pt-6', {

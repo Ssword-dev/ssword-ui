@@ -20,8 +20,8 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"],
-			"@ssword-ui/react": ["../../packages/ui-react"],
-			"@ssword/utils": ["../../packages/utils"]
+			"@ssword-ui/react": ["../../packages/ui-react/src/index.ts"],
+			"@ssword/utils-dom": ["../../packages/utils-dom/src/index.ts"]
 		}
 	},
 	"include": [

@@ -1,4 +1,4 @@
-import { cvm } from '@ssword/utils';
+import { cvm } from '@ssword/utils-dom';
 import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const badgeVM = cvm('inline px-2 py-1', {

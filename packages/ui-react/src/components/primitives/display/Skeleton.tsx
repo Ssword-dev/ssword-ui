@@ -1,4 +1,4 @@
-import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils';
+import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils-dom';
 import { type ComponentDeclaration, defineComponent, properties } from './utils';
 
 const skeletonVM = cvm('skeleton animate-skeleton-pulse', {

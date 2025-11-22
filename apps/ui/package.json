@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"@nx/next": "^22.1.1",
+		"@nx/vite": "^22.1.1",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
 		"@types/react": "^19",
@@ -27,6 +28,8 @@
 		"fast-glob": "^3.3.3",
 		"js-yaml": "^4.1.1",
 		"tailwindcss": "^4",
-		"typescript": "^5"
+		"typescript": "^5",
+		"vite": "^7.2.4",
+		"vitest": "^3.2.4"
 	}
 }

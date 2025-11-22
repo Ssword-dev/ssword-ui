@@ -1,4 +1,4 @@
-import { cn, cvm } from '@ssword/utils';
+import { cn, cvm } from '@ssword/utils-dom';
 import { forwardRef } from 'react';
 import { ComponentDeclaration, defineComponent, properties } from './utils';
 

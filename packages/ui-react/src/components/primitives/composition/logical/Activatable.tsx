@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type PointerEvent, forwardRef } from 'react';
-import { cn, cvm } from '@ssword/utils';
+import { cn, cvm } from '@ssword/utils-dom';
 import { Slot } from '@radix-ui/react-slot';
 
 export interface ActivatableChangeEventMetadata {

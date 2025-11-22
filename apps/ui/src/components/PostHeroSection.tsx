@@ -1,4 +1,4 @@
-import { cn } from '@ssword/utils';
+import { cn } from '@ssword/utils-dom';
 import { FC, PropsWithChildren } from 'react';
 
 const PostHeroSection: FC<

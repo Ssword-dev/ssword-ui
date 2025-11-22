@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.lib.json",
+	"compilerOptions": {
+		// use esnext.
+		"types": ["node"]
+	}
+}

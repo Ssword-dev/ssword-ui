@@ -11,10 +11,7 @@
 			"path": "./config/typescript/tsconfig.node.json"
 		},
 		{
-			"path": "./packages/ui-vue/tsconfig.json"
-		},
-		{
-			"path": "./packages/ui-site/tsconfig.json"
+			"path": "./apps/ui/tsconfig.json"
 		}
 	]
 }

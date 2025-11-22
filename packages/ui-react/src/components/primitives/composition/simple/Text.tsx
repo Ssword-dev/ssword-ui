@@ -1,4 +1,4 @@
-import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils';
+import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils-dom';
 import { slottable } from '../utils';
 import { SimpleCompositionPrimitiveComponent } from './types';
 import { ComponentDeclaration, defineComponent, properties } from './utils';

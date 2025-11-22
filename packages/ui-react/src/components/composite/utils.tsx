@@ -1,4 +1,4 @@
-import { cn, cvm, InferVariantProps, InferVariantPropsWithClass } from '@ssword/utils';
+import { cn, cvm, InferVariantProps, InferVariantPropsWithClass } from '@ssword/utils-dom';
 import React, { FC, forwardRef, ForwardRefExoticComponent, JSX, ReactNode, useMemo } from 'react';
 
 interface WildcardComponent {

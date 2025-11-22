@@ -1,8 +1,8 @@
 {
-	// library base configuration.
-	// specifies no specific Ecmascript
-	// specification version.
 	"compilerOptions": {
+		"module": "ESNext",
+		"lib": ["ESNext"],
+
 		// default typescript
 		// strictness.
 		"strict": true,
@@ -24,6 +24,9 @@
 		// these keeps builds fast.
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
+
+		// allow import default from export =
+		"esModuleInterop": true,
 
 		// we are using a bundler.
 		"moduleResolution": "bundler"

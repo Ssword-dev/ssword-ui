@@ -1,4 +1,4 @@
-import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils';
+import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils-dom';
 import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const cardContentVM = cvm(cn('px-6 flex-grow'), {
