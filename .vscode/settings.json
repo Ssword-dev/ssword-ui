@@ -1,31 +1,28 @@
 {
 	"search.exclude": {
 		"**/.yarn": true,
-		"**/.pnp.*": true
+		"**/.pnp.*": true,
+		"**/node_modules/**": true
 	},
 
 	"npm.packageManager": "pnpm",
 
 	"files.exclude": {
+		// os junk.
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
 
-		// yarn stuff.
-		"**/.yarn": true,
-		"**/yarn.lock": true,
+		// node modules
+		"**/node_modules": true,
 
-		// yarn berry PnP
-		"**/.pnp.cjs": true,
-		"**/.pnp.loader.mjs": true,
-
-		// build related stuff.
-		"**/.turbo": true,
-		// "**/node_modules": true,
+		// builds
 		"**/dist": true,
 		"**/.nuxt": true,
+		"**/.next": true,
+		"**/.nx": true,
 
 		// eslint
 		"**/.eslintcache": true

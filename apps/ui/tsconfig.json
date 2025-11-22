@@ -20,8 +20,8 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"],
-			"@ssword-ui/react": ["../ui-react/src/index.ts"],
-			"@ssword/utils": ["../utils/src/index.ts"]
+			"@ssword-ui/react": ["../../packages/ui-react"],
+			"@ssword/utils": ["../../packages/utils"]
 		}
 	},
 	"include": [
@@ -32,7 +32,7 @@
 		".next/dev/types/**/*.ts",
 		"**/*.mts",
 		"config-utils.mjs",
-		"next.config.mjs"
+		"next.config.ts"
 	],
 	"exclude": ["node_modules"]
 }

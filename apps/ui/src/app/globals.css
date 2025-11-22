@@ -7,7 +7,7 @@ custommizations can be done in this very file.
 */
 
 @source "../**/*";
-@source "../../../ui-react/src/**/*";
+@source "../../../../packages/ui-react/src/**/*";
 
 @import "tailwindcss";
 

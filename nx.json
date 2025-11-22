@@ -6,27 +6,47 @@
 			"outputs": ["{projectRoot}/dist/**"],
 			"cache": true
 		},
-
 		"clean": {
 			"cache": false,
 			"parallelism": true
 		},
-
 		"lint": {
 			"cache": true
 		},
-
 		"dev": {
 			"cache": false
 		},
-
 		"test": {
 			"dependsOn": ["build"],
 			"cache": true
+		},
+		"@nx/esbuild:esbuild": {
+			"cache": true,
+			"dependsOn": ["^build"],
+			"inputs": ["default", "^default"]
 		}
 	},
-
 	"workspaceLayout": {
-		"libsDir": "./packages"
-	}
+		"libsDir": "./packages",
+		"appsDir": "./apps"
+	},
+	"release": {
+		"version": {
+			"preVersionCommand": "pnpm dlx nx run-many -t build"
+		}
+	},
+	"plugins": [
+		{
+			"plugin": "@nx/eslint/plugin",
+			"options": {
+				"targetName": "eslint:lint"
+			}
+		},
+		{
+			"plugin": "@nx/jest/plugin",
+			"options": {
+				"targetName": "test"
+			}
+		}
+	]
 }

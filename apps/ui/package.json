@@ -1,5 +1,5 @@
 {
-	"name": "@ssword-ui/site",
+	"name": "@apps/ui",
 	"type": "module",
 	"version": "0.1.0",
 	"private": true,
@@ -16,6 +16,7 @@
 		"react-dom": "19.2.0"
 	},
 	"devDependencies": {
+		"@nx/next": "^22.1.1",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
 		"@types/react": "^19",

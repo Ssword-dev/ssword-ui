@@ -25,13 +25,7 @@ export const metadata: Metadata = {
 
 function ClientLayout({ children }: PropsWithChildren) {
 	'use client';
-	return (
-		<>
-			<Header />
-			<main className="flex-1">{children}</main>
-			<Footer />
-		</>
-	);
+	return <></>;
 }
 
 export default function RootLayout({
@@ -42,11 +36,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<Services.Theming.Provider>
-					<div className="flex flex-col">
-						<ClientLayout>{children}</ClientLayout>
-					</div>
-				</Services.Theming.Provider>
+				<Services.Theming.Provider>{children}</Services.Theming.Provider>
 			</body>
 		</html>
 	);

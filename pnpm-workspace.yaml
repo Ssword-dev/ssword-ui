@@ -1,10 +1,14 @@
 packages:
   - packages/*
+  - dev/packages/*
   - apps/*
-  - 'dev/nx/plugins/*'
+
+linkWorkspacePackages: true
 
 onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - better-sqlite3
+  - '@swc/core'
   - esbuild
+  - nx
   - sharp
+
+strictPeerDependencies: true
