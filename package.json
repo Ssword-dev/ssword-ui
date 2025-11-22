@@ -14,7 +14,6 @@
 	},
 	"devDependencies": {
 		"@nx/devkit": "^22.0.4",
-		"@nx/plugin": "22.0.3",
 		"@tsconfig/node22": "^22.0.2",
 		"@types/jsdom": "^27.0.0",
 		"@types/node": "^22.19.0",
@@ -31,9 +30,6 @@
 		"typescript": "~5.9.3",
 		"vite": "^7.2.2",
 		"vitest": "^3.2.4"
-	},
-	"dependencies": {
-		"esbuild": "^0.25.12"
 	},
 	"packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40"
 }
