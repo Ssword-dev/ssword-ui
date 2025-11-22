@@ -1,8 +1,0 @@
-{
-  "title": "ui-react create",
-  "type": "object",
-  "properties": {
-    "sc": { "type": "string" }
-  },
-  "required": ["kind", "name"]
-}

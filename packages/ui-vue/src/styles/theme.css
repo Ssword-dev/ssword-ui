@@ -1,5 +1,0 @@
-@import './keyframes.css';
-
-@theme inline {
-  --animate-skeleton-pulse: -skeleton-pulse ease 600ms alternate infinite;
-}

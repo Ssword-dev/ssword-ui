@@ -1,5 +1,6 @@
 {
-	"extends": "@vue/tsconfig/tsconfig.dom.json",
+	// extend the dom library base configuration for es6.
+	"extends": "../tsconfig.lib-dom-es6.json",
 	"include": ["src/**/*", "src/**/*.vue", "../../tests/packages/ui-vue/core/events.spec.ts"],
 	"exclude": ["src/**/__tests__/*"],
 	"compilerOptions": {

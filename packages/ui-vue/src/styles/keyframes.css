@@ -1,9 +1,0 @@
-@keyframes -skeleton-pulse {
-  from {
-    background-color: var(--pallete-color-muted);
-  }
-
-  to {
-    background-color: var(--pallete-color-accent);
-  }
-}

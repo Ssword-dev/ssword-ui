@@ -1,6 +1,7 @@
 packages:
   - packages/*
-  - '!packages/dev'
+  - apps/*
+  - 'dev/nx/plugins/*'
 
 onlyBuiltDependencies:
   - '@parcel/watcher'

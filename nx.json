@@ -26,5 +26,7 @@
 		}
 	},
 
-	"plugins": []
+	"workspaceLayout": {
+		"libsDir": "./packages"
+	}
 }

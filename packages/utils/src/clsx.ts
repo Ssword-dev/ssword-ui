@@ -39,7 +39,9 @@ function _clsx() {
 		if (typeof input === 'string' || typeof input === 'number') {
 			classNames[idx++] = input.toString(); // directly call toString.
 		} else if (Array.isArray(input)) {
-			input.forEach(populate);
+			for (let i = 0; i < input.length; i++) {
+				populate(input[i]);
+			}
 		} else {
 			for (const k in input) {
 				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -60,6 +62,8 @@ function _clsx() {
 
 	// optim: again, no need to convert arguments to
 	// array. just iterate.
+	// in modern v8, spread syntax is mostly equally performant,
+	// but it has some cost still.
 	for (let i = 0; i < arguments.length; i++) {
 		// eslint-disable-next-line prefer-rest-params
 		populate(arguments[i]);

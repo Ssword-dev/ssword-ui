@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils';
+import { cvm } from '@ssword/utils';
+import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const badgeVM = cvm('inline px-2 py-1', {
 	variants: {},
@@ -7,19 +7,15 @@ const badgeVM = cvm('inline px-2 py-1', {
 	compoundVariants: [],
 });
 
-export default defineComponent<InferVariantPropsWithClass<typeof badgeVM>>({
-	name: 'BadgePrimitive',
-
-	setup(props, { slots, attrs }) {
-		return () => (
-			<button
-				{...attrs}
-				class={cn(badgeVM(props), props.class)}
-			>
-				{slots.default?.()}
-			</button>
-		);
+const BadgeComponentDeclaration = {
+	is: 'span',
+	variantManager: badgeVM,
+	properties: properties<{}>(),
+	variantProps(props) {
+		return [{}, props] as const;
 	},
+} satisfies ComponentDeclaration;
 
-	props: badgeVM.vuePropsWithClass(),
-});
+const Badge = defineComponent(BadgeComponentDeclaration);
+
+export default Badge;

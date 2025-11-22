@@ -5,9 +5,9 @@ interface CommonCompositionPrimitiveComponentProps {
 	asChild?: boolean;
 }
 
-type Slottable<T extends keyof JSX.IntrinsicElements> = ForwardRefExoticComponent<{
-	(props: JSX.IntrinsicElements[T]): ReactNode;
-}>;
+type Slottable<T extends keyof JSX.IntrinsicElements> = ForwardRefExoticComponent<
+	JSX.IntrinsicElements[T]
+>;
 
 function slottable<const T extends keyof React.JSX.IntrinsicElements>(
 	defaultTag: T,

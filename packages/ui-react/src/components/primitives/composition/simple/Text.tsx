@@ -1,6 +1,7 @@
-import { useMemo, type FC } from 'react';
-import { cn, cvm } from '@ssword/utils';
+import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils';
 import { slottable } from '../utils';
+import { SimpleCompositionPrimitiveComponent } from './types';
+import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const textVM = cvm('text-base font-normal text-foreground', {
 	variants: {
@@ -83,19 +84,42 @@ const textVM = cvm('text-base font-normal text-foreground', {
 	compoundVariants: [],
 });
 
-const Text = function ({ asChild = false, className, ...props }) {
-  const {
+const TextComponentDeclaration = {
+	variantManager: textVM,
+	properties: properties<{}>(),
+	variantProps(props: any) {
+		const {
+			variant,
+			size,
+			weight,
+			align,
+			leading,
+			tracking,
+			transform,
+			wrap,
+			decoration,
+			...intrinsicProps
+		} = props;
 
-  } = variantProps;
-	const CompRef = useMemo(() => slottable('span', asChild), [asChild]);
-	return (
-		<CompRef
-			{...attrs}
-			className={cn(textVM(variantProps), className)}
-		>
-			{slots.default?.()}
-		</CompRef>
-	);
-};
+		return [
+			{
+				variant,
+				size,
+				weight,
+				align,
+				leading,
+				tracking,
+				transform,
+				wrap,
+				decoration,
+			},
+			intrinsicProps,
+		] as const;
+	},
+	is: 'span',
+	baseClassName: '',
+} satisfies ComponentDeclaration;
 
-export default
+const Text = defineComponent(TextComponentDeclaration);
+
+export default Text;

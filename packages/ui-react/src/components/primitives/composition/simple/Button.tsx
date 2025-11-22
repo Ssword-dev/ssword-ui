@@ -1,5 +1,6 @@
 import { cn, cvm } from '@ssword/utils';
 import { forwardRef } from 'react';
+import { ComponentDeclaration, defineComponent, properties } from './utils';
 
 const buttonVM = cvm(
 	'inline-flex items-center transition-all duration-200 ease-in-out px-4 py-2 text-base rounded-md border border-border bg-primary text-text hover:bg-accent hover:border-accent-strong hover:cursor-pointer active:scale-105 active:bg-accent active:border-accent-strong',
@@ -24,19 +25,42 @@ const buttonVM = cvm(
 	},
 );
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: 'glass' | 'primary';
-	size?: 'sm' | 'md' | 'lg' | 'xl';
-}
+const ButtonComponentDeclaration = {
+	variantManager: buttonVM,
+	properties: properties<{}>(),
+	variantProps(props) {
+		const {
+			variant,
+			size,
+			weight,
+			align,
+			leading,
+			tracking,
+			transform,
+			wrap,
+			decoration,
+			...intrinsicProps
+		} = props;
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, ...props }, ref) => (
-		<button
-			ref={ref}
-			{...props}
-			className={cn(buttonVM({ variant, size }), className)}
-		>
-			{props.children}
-		</button>
-	),
-);
+		return [
+			{
+				variant,
+				size,
+				weight,
+				align,
+				leading,
+				tracking,
+				transform,
+				wrap,
+				decoration,
+			},
+			intrinsicProps,
+		] as const;
+	},
+	is: 'button',
+	baseClassName: '',
+} satisfies ComponentDeclaration;
+
+const Button = defineComponent(ButtonComponentDeclaration);
+
+export default Button;

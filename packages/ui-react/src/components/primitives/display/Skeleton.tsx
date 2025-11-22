@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
 import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils';
+import { type ComponentDeclaration, defineComponent, properties } from './utils';
 
 const skeletonVM = cvm('skeleton animate-skeleton-pulse', {
 	variants: {},
@@ -7,19 +7,15 @@ const skeletonVM = cvm('skeleton animate-skeleton-pulse', {
 	compoundVariants: [],
 });
 
-export default defineComponent<InferVariantPropsWithClass<typeof skeletonVM>>({
-	name: 'SkeletonPrimitive',
-
-	setup(props, { slots, attrs }) {
-		return () => (
-			<div
-				{...attrs}
-				class={cn(skeletonVM(props), props.class)}
-			>
-				{slots.default?.()}
-			</div>
-		);
+const SkeletonComponentDeclaration = {
+	is: 'span',
+	variantManager: skeletonVM,
+	properties: properties<{}>(),
+	variantProps(props) {
+		return [{}, props] as const;
 	},
+} satisfies ComponentDeclaration;
 
-	props: skeletonVM.vuePropsWithClass(),
-});
+const Skeleton = defineComponent(SkeletonComponentDeclaration);
+
+export default Skeleton;

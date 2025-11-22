@@ -6,7 +6,7 @@ export interface ActivatableChangeEventMetadata {
 	value: boolean;
 }
 
-export interface ActivatableProps {
+export interface ActivatableProps extends Omit<React.ComponentProps<'button'>, 'onToggle'> {
 	normallyOpen?: boolean;
 	asChild?: boolean;
 	onToggle?: (e: ActivatableChangeEventMetadata) => void;
@@ -35,7 +35,7 @@ const activatableVM = cvm(
 	},
 );
 
-export const Activatable = forwardRef<HTMLButtonElement, ActivatableProps>(
+const Activatable = forwardRef<HTMLButtonElement, ActivatableProps>(
 	({ normallyOpen = false, asChild = false, onToggle, className, children, ...rest }, ref) => {
 		const [active, setActive] = useState(normallyOpen);
 		const hydrating = useRef(true);
@@ -70,3 +70,5 @@ export const Activatable = forwardRef<HTMLButtonElement, ActivatableProps>(
 		);
 	},
 );
+
+export default Activatable;

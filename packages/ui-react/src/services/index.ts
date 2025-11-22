@@ -1,1 +1,1 @@
-export { default as Theming } from './theming';
+export * as Theming from './theming';
