@@ -37,7 +37,7 @@
 		"@types/jsdom": "^27.0.0",
 		"@types/node": "^22.19.0",
 		"@vitest/eslint-plugin": "^1.4.2",
-		"esbuild": "^0.19.12",
+		"esbuild": "^0.25.0",
 		"eslint": "^9.39.1",
 		"eslint-config-prettier": "^10.0.0",
 		"inquirer": "^13.0.1",
