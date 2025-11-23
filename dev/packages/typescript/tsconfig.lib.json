@@ -1,34 +1,66 @@
+// Base Typescript Configurations for Libraries.
+
 {
 	"compilerOptions": {
+		// Environment
+
+		// modern target for transpilers.
+		"target": "ESNext",
+
+		// modern modules for transpilers.
 		"module": "ESNext",
+
+		// include ESNext library types.
 		"lib": ["ESNext"],
 
-		// default typescript
-		// strictness.
+		// Typechecker Strictness
 		"strict": true,
 
-		// do not emit anything.
-		"noEmit": true,
+		"exactOptionalPropertyTypes": true,
 
-		// all non-declaration files is a module.
-		"moduleDetection": "force",
+		// Modules
 
-		// include javascript files
-		// on typechecking.
-		"checkJs": true,
-
-		// eslint already yells at me for this.
-		"importsNotUsedAsValues": "remove",
-
-		// skip typechecking non source files.
-		// these keeps builds fast.
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
+		// we are using a bundler. (although not bundling. just transpiling.)
+		"moduleResolution": "bundler",
 
 		// allow import default from export =
 		"esModuleInterop": true,
 
-		// we are using a bundler.
-		"moduleResolution": "bundler"
+		// allow importing json files.
+		"resolveJsonModule": true,
+
+		// enable isolated modules and declarations.
+		// to ensure higher quality code.
+		"isolatedModules": true,
+		"isolatedDeclarations": true,
+
+		// all non-declaration files is a module.
+		"moduleDetection": "force",
+
+		// do not include javascript files
+		// on typechecking.
+		// normally when we are working with
+		// javascript, it's to avoid the typechecker.
+		"checkJs": false,
+
+		// Emit
+
+		// only be able to emit declarations.
+		// do not transpile modules, that is the
+		// transpiler's job.
+		"emitDeclarationOnly": true,
+
+		// allow emitting declarations.
+		"declaration": true,
+
+		// also emit declaration maps.
+		"declarationMap": true,
+
+		// Typechecker optimizations.
+
+		// skip typechecking non source files.
+		// these keeps builds fast.
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true
 	}
 }

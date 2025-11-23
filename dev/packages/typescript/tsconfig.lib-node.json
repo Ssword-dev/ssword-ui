@@ -1,3 +1,5 @@
+// For Libraries running in Node Environment.
+
 {
 	"extends": "./tsconfig.lib.json",
 	"compilerOptions": {

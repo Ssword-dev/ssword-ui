@@ -1,26 +1,5 @@
 {
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
-	"targetDefaults": {
-		"build": {
-			"dependsOn": ["^build"],
-			"outputs": ["{projectRoot}/dist/**"],
-			"cache": true
-		},
-		"clean": {
-			"cache": false,
-			"parallelism": true
-		},
-		"lint": {
-			"cache": true
-		},
-		"dev": {
-			"cache": false
-		},
-		"test": {
-			"dependsOn": ["build"],
-			"cache": true
-		}
-	},
 	"workspaceLayout": {
 		"libsDir": "./packages",
 		"appsDir": "./apps"

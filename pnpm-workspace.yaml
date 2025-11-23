@@ -13,4 +13,4 @@ onlyBuiltDependencies:
   - sharp
   - unrs-resolver
 
-strictPeerDependencies: true
+strictPeerDependencies: false

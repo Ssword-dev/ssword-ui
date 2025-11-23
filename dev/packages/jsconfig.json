@@ -1,0 +1,7 @@
+{
+	"include": ["**/*.js", "**/*.mjs", "**/*.cjs"],
+
+	"compilerOptions": {
+		"types": ["node"]
+	}
+}

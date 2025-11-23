@@ -2,6 +2,9 @@
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"name": "@ssword-ui/react",
 
+	"root": "packages/ui-react",
+	"sourceRoot": "packages/ui-react/src",
+
 	"projectType": "library",
 	"metadata": {
 		"description": "An expressive UI Library for ReactJS"
@@ -19,20 +22,43 @@
 
 	"targets": {
 		"build": {
-			"executor": "@nx/esbuild:esbuild",
-			"outputs": ["{options.outputPath}"],
+			"cache": true,
+			"command": "vite build",
 			"options": {
-				"outputPath": "dist/utils-dom",
-				"main": "utils-dom/src/index.ts",
-				"tsConfig": "utils-dom/tsconfig.lib.json",
-				"assets": ["utils-dom/*.md"],
-				"format": ["esm", "cjs"],
-				"generatePackageJson": true
+				"cwd": "{projectRoot}"
+			},
+			"outputs": ["{projectRoot}/dist"]
+		},
+
+		"test": {
+			"cache": true,
+			"command": "vitest run",
+			"options": {
+				"cwd": "{projectRoot}"
 			}
 		},
-		"nx-release-publish": {
+
+		"lint": {
+			"cache": true,
+			"command": "eslint .",
 			"options": {
-				"packageRoot": "dist/{projectRoot}"
+				"cwd": "{projectRoot}"
+			}
+		},
+
+		"format": {
+			"cache": true,
+			"command": "prettier . --write",
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+
+		"typecheck": {
+			"cache": true,
+			"command": "tsc -p tsconfig.lib.json",
+			"options": {
+				"cwd": "{projectRoot}"
 			}
 		}
 	}

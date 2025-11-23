@@ -20,7 +20,11 @@
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
-		"build": "vite build"
+		"build": "nx build @ssword/scheduler",
+		"lint": "nx lint @ssword/scheduler",
+		"format": "nx format @ssword/scheduler",
+		"test": "nx test @ssword/scheduler",
+		"typecheck": "nx @ssword/scheduler"
 	},
 	"dependencies": {
 		"tinyqueue": "^3.0.0"
@@ -30,7 +34,9 @@
 		"@tsconfig/node22": "^22.0.2",
 		"@types/node": "^22.18.11",
 		"@workspace/typescript": "workspace:^",
+		"@workspace/vite": "workspace:^",
 		"rollup": "^4.53.3",
+		"rollup-plugin-esbuild": "^6.2.1",
 		"typescript": "~5.9.0",
 		"vite": "^7.2.2",
 		"vite-plugin-dts": "^4.5.4",

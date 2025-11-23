@@ -1,7 +1,8 @@
 import { mergeConfig, defineConfig } from 'vitest/config';
 import viteConfig from './vite.config';
+import { LibraryConfig } from '@workspace/vite/config';
 
-export default mergeConfig(
+const config: LibraryConfig = mergeConfig(
 	viteConfig,
 	defineConfig(
 		defineConfig({
@@ -15,3 +16,5 @@ export default mergeConfig(
 		}),
 	),
 );
+
+export default config;

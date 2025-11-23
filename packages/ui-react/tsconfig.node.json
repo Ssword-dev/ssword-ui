@@ -1,5 +1,5 @@
 {
-	"extends": "@tsconfig/node22/tsconfig.json",
+	"extends": "@workspace/typescript/tsconfig.lib-test-vitest.json",
 	"include": [
 		"nuxt.config.*",
 		"vite.config.*",
@@ -11,13 +11,5 @@
 		"vitest.config.ts",
 		"../../eslint.config.ts",
 		"vite.config.ts"
-	],
-	"compilerOptions": {
-		"noEmit": true,
-		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"types": ["node"]
-	}
+	]
 }

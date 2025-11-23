@@ -19,10 +19,10 @@
 		"**/node_modules": true,
 
 		// builds
-		"**/dist": true,
+		// "**/dist": true,
 		"**/.nuxt": true,
 		"**/.next": true,
-		"**/.nx": true,
+		// "**/.nx": true,
 
 		// eslint
 		"**/.eslintcache": true

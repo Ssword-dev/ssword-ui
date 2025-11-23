@@ -1,4 +1,4 @@
-function scroll(selectors: string) {
+function scroll(selectors: string): void {
 	const el = document.querySelector(selectors);
 
 	if (el) {

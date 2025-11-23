@@ -1,5 +1,5 @@
 {
-	"extends": "@tsconfig/node22/tsconfig.json",
+	"extends": "@workspace/typescript/tsconfig.lib-node.json",
 	"include": [
 		"vite.config.*",
 		"vitest.config.*",

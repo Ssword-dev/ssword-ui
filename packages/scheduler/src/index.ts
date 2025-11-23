@@ -111,6 +111,6 @@ function createScheduler(): Scheduler {
 	};
 }
 
-let globalScheduler = createScheduler();
+const globalScheduler: Scheduler = createScheduler();
 
 export { createScheduler, globalScheduler };

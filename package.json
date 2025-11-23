@@ -5,12 +5,21 @@
 		"./packages/*",
 		"dev/nx/plugins/*"
 	],
+	"nx": {
+		"includedScripts": [
+			"build",
+			"test",
+			"format",
+			"lint",
+			"typecheck"
+		]
+	},
 	"scripts": {
 		"dev": "pnpm --filter=@apps/ui run dev",
-		"build": "nx build",
-		"format": "turbo format",
-		"lint": "turbo lint",
-		"d": "pnpm dev"
+		"test": "pnpm -r test",
+		"build": "pnpm -r build",
+		"format": "pnpm -r format",
+		"lint": "pnpm -r lint"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.8.0",
@@ -19,9 +28,10 @@
 		"@nx/eslint": "22.1.1",
 		"@nx/eslint-plugin": "22.1.1",
 		"@nx/js": "22.1.1",
-		"@swc-node/register": "~1.9.1",
-		"@swc/core": "~1.5.7",
-		"@swc/helpers": "~0.5.11",
+		"@nx/nx-plugin": "16.0.0-beta.1",
+		"@swc-node/register": "~1.11.1",
+		"@swc/core": "~1.15.3",
+		"@swc/helpers": "~0.5.17",
 		"@tsconfig/node22": "^22.0.2",
 		"@types/jest": "^30.0.0",
 		"@types/jsdom": "^27.0.0",
@@ -53,8 +63,5 @@
 	"packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40",
 	"dependencies": {
 		"tslib": "^2.3.0"
-	},
-	"nx": {
-		"includedScripts": []
 	}
 }
