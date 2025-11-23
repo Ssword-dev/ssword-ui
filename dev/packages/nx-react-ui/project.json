@@ -1,0 +1,41 @@
+{
+	"name": "nx-react-ui",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "dev/packages/nx-react-ui/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/dev/packages/nx-react-ui",
+				"main": "dev/packages/nx-react-ui/src/index.ts",
+				"tsConfig": "dev/packages/nx-react-ui/tsconfig.lib.json",
+				"assets": [
+					"dev/packages/nx-react-ui/*.md",
+					{
+						"input": "./dev/packages/nx-react-ui/src",
+						"glob": "**/!(*.ts)",
+						"output": "./src"
+					},
+					{
+						"input": "./dev/packages/nx-react-ui/src",
+						"glob": "**/*.d.ts",
+						"output": "./src"
+					},
+					{
+						"input": "./dev/packages/nx-react-ui",
+						"glob": "generators.json",
+						"output": "."
+					},
+					{
+						"input": "./dev/packages/nx-react-ui",
+						"glob": "executors.json",
+						"output": "."
+					}
+				]
+			}
+		}
+	}
+}

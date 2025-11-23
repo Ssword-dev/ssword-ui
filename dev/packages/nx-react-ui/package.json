@@ -1,0 +1,17 @@
+{
+	"name": "@workspace/nx-react-ui",
+	"version": "0.0.1",
+	"private": true,
+	"type": "commonjs",
+	"main": "./src/index.js",
+	"types": "./src/index.d.ts",
+	"dependencies": {
+		"@nx/devkit": "22.1.1",
+		"change-case": "^5.4.4",
+		"tslib": "^2.3.0"
+	},
+	"devDependencies": {
+		"@workspace/typescript": "workspace:^"
+	},
+	"generators": "./generators.json"
+}
