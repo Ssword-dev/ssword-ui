@@ -1,0 +1,64 @@
+{
+	"name": "@ssword-ui/react",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"module": "./dist/index.mjs",
+	"main": "./dist/index.cjs",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.mjs"
+		},
+		"./styles": "./dist/styles/index.css",
+		"./styles/*": "./dist/styles/*",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": "^20.19.0 || >=22.12.0"
+	},
+	"scripts": {
+		"build": "nx build @ssword-ui/react",
+		"lint": "nx lint @ssword-ui/react",
+		"format": "nx format @ssword-ui/react",
+		"test": "nx test @ssword-ui/react",
+		"typecheck": "nx typecheck @ssword-ui/react"
+	},
+	"dependencies": {
+		"@radix-ui/react-slot": "^1.2.4",
+		"@ssword/utils-dom": "workspace:^"
+	},
+	"peerDependencies": {
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@nx/vite": "^22.1.1",
+		"@tsconfig/node22": "^22.0.3",
+		"@types/jsdom": "^27.0.0",
+		"@types/node": "^22.19.1",
+		"@types/react": "^19.2.6",
+		"@types/react-dom": "^19.2.3",
+		"@vitest/eslint-plugin": "^1.4.2",
+		"@workspace/typescript": "workspace:^",
+		"@workspace/vite": "workspace:^",
+		"eslint": "^9.39.1",
+		"jiti": "^2.6.1",
+		"jsdom": "^27.2.0",
+		"npm-run-all2": "^8.0.4",
+		"prettier": "3.6.2",
+		"react": "19.2.0",
+		"react-dom": "19.2.0",
+		"rollup": "^4.53.3",
+		"rollup-plugin-esbuild": "^6.2.1",
+		"typescript": "~5.9.3",
+		"vite": "^7.2.2",
+		"vite-plugin-dts": "^4.5.4",
+		"vite-plugin-static-copy": "^3.1.4",
+		"vitest": "^3.2.4"
+	}
+}

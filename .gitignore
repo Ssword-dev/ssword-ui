@@ -1,0 +1,55 @@
+# Swap the comments on the following lines if you wish to use zero-installs
+# In that case, don't forget to run `yarn config set enableGlobalCache false`!
+# Documentation here: https://yarnpkg.com/features/caching#zero-installs
+
+#!.yarn/cache
+.pnp.*
+
+# some OS junk i think.
+
+**/.svn
+**/.hg
+**/.DS_Store
+**/Thumbs.db
+
+# yarn stuff.
+# ignore everything not in root.
+**/.yarn/*
+**/.yarn/patches
+**/.yarn/plugins
+**/.yarn/releases
+**/.yarn/sdks
+**/.yarn/versions
+
+!.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# important to never ignore yarn.lock
+# so no 'it works on my machine'.
+# in this case, i chose to include root-only
+# yarn lock because there might be residues
+# from old structure.
+**/yarn.lock
+!yarn.lock
+
+# build related stuff
+**/.turbo
+**/dist
+
+# dev related stuff.
+# vite insists on creating node_modules
+# for some reason.
+node_modules
+**/node_modules
+
+# eslint
+**/.eslintcache
+
+.nx/cache
+.nx/workspace-data
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

@@ -1,0 +1,41 @@
+{
+	"name": "@apps/ui",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+
+	"root": "apps/ui",
+	"sourceRoot": "apps/ui/src",
+
+	"projectType": "application",
+
+	"release": {
+		"version": {
+			"manifestRootsToUpdate": ["dist/{projectRoot}"],
+			"currentVersionResolver": "git-tag",
+			"fallbackCurrentVersionResolver": "disk"
+		}
+	},
+	"tags": [],
+	"targets": {
+		"build": {
+			"inputs": ["{projectRoot}/**/*", "{projectRoot}/next.config.*"],
+			"cache": true,
+			"command": "next build",
+			"options": {
+				"cwd": "{projectRoot}"
+			},
+			"outputs": ["{projectRoot}/.next"]
+		},
+
+		"test": {
+			"executor": "nx:noop"
+		},
+
+		"lint": {
+			"executor": "nx:noop"
+		},
+
+		"format": {
+			"executor": "nx:noop"
+		}
+	}
+}

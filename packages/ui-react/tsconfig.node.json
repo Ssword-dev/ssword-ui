@@ -1,0 +1,15 @@
+{
+	"extends": "@workspace/typescript/tsconfig.lib-test-vitest.json",
+	"include": [
+		"nuxt.config.*",
+		"vite.config.*",
+		"vitest.config.*",
+		"cypress.config.*",
+		"nightwatch.conf.*",
+		"playwright.config.*",
+		"eslint.config.*",
+		"vitest.config.ts",
+		"../../eslint.config.ts",
+		"vite.config.ts"
+	]
+}

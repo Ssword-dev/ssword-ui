@@ -1,0 +1,4 @@
+{
+	"extends": "@workspace/typescript/tsconfig.lib-test-vitest.json",
+	"include": ["vitest.config.ts", "tests/**/*.{spec,test}.tsx?"]
+}

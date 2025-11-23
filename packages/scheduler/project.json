@@ -1,0 +1,57 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"name": "@ssword/scheduler",
+
+	"root": "packages/scheduler",
+	"sourceRoot": "packages/scheduler/src",
+
+	"projectType": "library",
+	"metadata": {
+		"description": "A basic scheduler for javascript."
+	},
+
+	"release": {
+		"version": {
+			"manifestRootsToUpdate": ["dist/{projectRoot}"],
+			"currentVersionResolver": "git-tag",
+			"fallbackCurrentVersionResolver": "disk"
+		}
+	},
+
+	"tags": [],
+
+	"targets": {
+		"build": {
+			"cache": true,
+			"command": "vite build",
+			"options": {
+				"cwd": "{projectRoot}"
+			},
+			"outputs": ["{projectRoot}/dist"]
+		},
+
+		"test": {
+			"cache": true,
+			"command": "vitest run",
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+
+		"lint": {
+			"cache": true,
+			"command": "eslint .",
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+
+		"format": {
+			"cache": true,
+			"command": "prettier . --write",
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		}
+	}
+}

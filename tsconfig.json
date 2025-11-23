@@ -1,0 +1,17 @@
+{
+	"files": [],
+	"references": [
+		{
+			"path": "./config/typescript/tsconfig.virtual.json"
+		},
+		{
+			"path": "./config/typescript/tsconfig.tests.json"
+		},
+		{
+			"path": "./config/typescript/tsconfig.node.json"
+		},
+		{
+			"path": "./apps/ui/tsconfig.json"
+		}
+	]
+}

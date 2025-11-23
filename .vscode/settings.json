@@ -1,0 +1,41 @@
+{
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true,
+		"**/node_modules/**": true
+	},
+
+	"npm.packageManager": "pnpm",
+
+	"files.exclude": {
+		// os junk.
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+
+		// node modules
+		"**/node_modules": true,
+
+		// builds
+		// "**/dist": true,
+		"**/.nuxt": true,
+		"**/.next": true,
+		// "**/.nx": true,
+
+		// eslint
+		"**/.eslintcache": true
+	},
+
+	// combination of these together is just...
+	// perfect.
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+
+	"eslint.options": {
+		"configFile": "./config/eslint/eslint.config.ts"
+	}
+}

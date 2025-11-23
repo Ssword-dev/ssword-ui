@@ -1,0 +1,11 @@
+{
+	"name": "@workspace/typescript",
+	"author": {
+		"name": "ssword",
+		"email": "ssword.dev@gmail.com"
+	},
+	"devDependencies": {
+		"@workspace/vite": "workspace:^",
+		"rollup-plugin-esbuild": "^6.2.1"
+	}
+}

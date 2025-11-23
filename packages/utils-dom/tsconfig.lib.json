@@ -1,0 +1,5 @@
+{
+	"extends": "@workspace/typescript/tsconfig.lib-dom.json",
+	"include": ["src/**/*.ts"],
+	"exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+}

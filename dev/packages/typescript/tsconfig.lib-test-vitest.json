@@ -1,0 +1,9 @@
+// For Library testing using Vitest.
+
+{
+	"extends": "./tsconfig.lib.json",
+	"compilerOptions": {
+		"lib": ["ESNext", "DOM"],
+		"types": ["node", "vitest/globals"]
+	}
+}

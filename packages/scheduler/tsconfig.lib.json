@@ -1,0 +1,11 @@
+{
+	"extends": "@workspace/typescript/tsconfig.lib.json",
+	"include": ["src/**/*"],
+	"exclude": ["src/**/__tests__/*"],
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
+}

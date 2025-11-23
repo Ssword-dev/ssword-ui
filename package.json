@@ -1,0 +1,67 @@
+{
+	"name": "@ssword/source",
+	"type": "module",
+	"workspaces": [
+		"./packages/*",
+		"dev/nx/plugins/*"
+	],
+	"nx": {
+		"includedScripts": [
+			"build",
+			"test",
+			"format",
+			"lint",
+			"typecheck"
+		]
+	},
+	"scripts": {
+		"dev": "pnpm --filter=@apps/ui run dev",
+		"test": "pnpm -r test",
+		"build": "pnpm -r build",
+		"format": "pnpm -r format",
+		"lint": "pnpm -r lint"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.8.0",
+		"@nx/devkit": "^22.1.1",
+		"@nx/esbuild": "22.1.1",
+		"@nx/eslint": "22.1.1",
+		"@nx/eslint-plugin": "22.1.1",
+		"@nx/js": "22.1.1",
+		"@nx/plugin": "^22.1.1",
+		"@swc-node/register": "~1.11.1",
+		"@swc/core": "~1.15.3",
+		"@swc/helpers": "~0.5.17",
+		"@tsconfig/node22": "^22.0.2",
+		"@types/jest": "^30.0.0",
+		"@types/jsdom": "^27.0.0",
+		"@types/node": "^22.19.0",
+		"@vitest/eslint-plugin": "^1.4.2",
+		"esbuild": "^0.25.0",
+		"eslint": "^9.39.1",
+		"eslint-config-prettier": "^10.0.0",
+		"inquirer": "^13.0.1",
+		"jest": "^30.0.2",
+		"jest-environment-node": "^30.0.2",
+		"jest-util": "^30.0.2",
+		"jiti": "^2.6.1",
+		"jsdom": "^27.1.0",
+		"jsonc-eslint-parser": "^2.1.0",
+		"npm-run-all2": "^8.0.4",
+		"nx": "22.1.1",
+		"prettier": "3.6.2",
+		"sass-embedded": "^1.93.3",
+		"ts-jest": "^29.4.0",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.20.6",
+		"typescript": "~5.9.3",
+		"typescript-eslint": "^8.40.0",
+		"verdaccio": "^6.0.5",
+		"vite": "^7.2.2",
+		"vitest": "^3.2.4"
+	},
+	"packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40",
+	"dependencies": {
+		"tslib": "^2.3.0"
+	}
+}

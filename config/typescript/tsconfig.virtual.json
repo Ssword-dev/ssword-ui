@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@ssword-ui/vue": ["./packages/ui-vue/src/index.ts"]
+		}
+	},
+	"include": ["**/*"]
+}
