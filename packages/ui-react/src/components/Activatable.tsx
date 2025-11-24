@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type PointerEvent, forwardRef } from 'react';
 import { cn, cvm } from '@ssword/utils-dom';
 import { Slot } from '@radix-ui/react-slot';
+import { RefType } from './types';
 
 export interface ActivatableChangeEventMetadata {
 	value: boolean;
@@ -35,7 +36,7 @@ const activatableVM = cvm(
 	},
 );
 
-const Activatable = forwardRef<HTMLButtonElement, ActivatableProps>(
+const Activatable = forwardRef<RefType<'button'>, ActivatableProps>(
 	({ normallyOpen = false, asChild = false, onToggle, className, children, ...rest }, ref) => {
 		const [active, setActive] = useState(normallyOpen);
 		const hydrating = useRef(true);
