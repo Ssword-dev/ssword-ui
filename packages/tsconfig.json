@@ -1,0 +1,8 @@
+{
+	"files": [],
+	"references": [
+		{ "path": "./scheduler/tsconfig.json" },
+		{ "path": "./ui-react/tsconfig.json" },
+		{ "path": "./utils-dom/tsconfig.json" }
+	]
+}
