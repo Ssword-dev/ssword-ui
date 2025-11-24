@@ -16,8 +16,6 @@
 		// Typechecker Strictness
 		"strict": true,
 
-		"exactOptionalPropertyTypes": true,
-
 		// Modules
 
 		// we are using a bundler. (although not bundling. just transpiling.)
@@ -28,11 +26,6 @@
 
 		// allow importing json files.
 		"resolveJsonModule": true,
-
-		// enable isolated modules and declarations.
-		// to ensure higher quality code.
-		"isolatedModules": true,
-		"isolatedDeclarations": true,
 
 		// all non-declaration files is a module.
 		"moduleDetection": "force",

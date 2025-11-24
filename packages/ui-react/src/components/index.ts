@@ -1,3 +1,14 @@
 'use client';
-export * from './primitives';
-export * from './composite';
+export { default as Activatable } from './Activatable';
+export { default as Badge } from './Badge';
+export { default as Box } from './Box';
+export { default as Button } from './Button';
+export { default as Card } from './Card';
+export { default as CardAction } from './CardAction';
+export { default as CardContent } from './CardContent';
+export { default as CardDescription } from './CardDescription';
+export { default as CardFooter } from './CardFooter';
+export { default as CardHeader } from './CardHeader';
+export { default as CardTitle } from './CardTitle';
+export { default as Skeleton } from './Skeleton';
+export { default as Text } from './Text';

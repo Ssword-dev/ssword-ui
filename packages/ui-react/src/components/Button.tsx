@@ -1,6 +1,11 @@
 import { cn, cvm } from '@ssword/utils-dom';
 import { forwardRef } from 'react';
-import { ComponentDeclaration, defineComponent, properties } from './utils';
+import { PropType, RefType, WithAsChild, WithClass, WithVariants } from './types';
+import { Slot } from '@radix-ui/react-slot';
+
+const base = 'button';
+
+type ComponentBase = typeof base;
 
 const buttonVM = cvm(
 	'inline-flex items-center transition-all duration-200 ease-in-out px-4 py-2 text-base rounded-md border border-border bg-primary text-text hover:bg-accent hover:border-accent-strong hover:cursor-pointer active:scale-105 active:bg-accent active:border-accent-strong',
@@ -25,42 +30,24 @@ const buttonVM = cvm(
 	},
 );
 
-const ButtonComponentDeclaration = {
-	variantManager: buttonVM,
-	properties: properties<{}>(),
-	variantProps(props) {
-		const {
-			variant,
-			size,
-			weight,
-			align,
-			leading,
-			tracking,
-			transform,
-			wrap,
-			decoration,
-			...intrinsicProps
-		} = props;
+interface ButtonProps
+	extends WithVariants<WithAsChild<WithClass<PropType<ComponentBase>>>, typeof buttonVM> {}
 
-		return [
-			{
-				variant,
-				size,
-				weight,
-				align,
-				leading,
-				tracking,
-				transform,
-				wrap,
-				decoration,
-			},
-			intrinsicProps,
-		] as const;
-	},
-	is: 'button',
-	baseClassName: '',
-} satisfies ComponentDeclaration;
+/**
+ * A Clickable UI Primitive.
+ */
+const Button = forwardRef<RefType<ComponentBase>, ButtonProps>((props, forwardedRef) => {
+	const { variant, size, className, asChild, ...baseProps } = props;
 
-const Button = defineComponent(ButtonComponentDeclaration);
+	const Comp = asChild ? Slot : base;
+	return (
+		<Comp
+			{...baseProps}
+			className={cn(buttonVM({ variant, size }), className)}
+			ref={forwardedRef}
+		/>
+	);
+});
 
 export default Button;
+export type { ButtonProps as Props };

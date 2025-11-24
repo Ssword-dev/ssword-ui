@@ -1,5 +1,9 @@
+import { forwardRef } from 'react';
 import { cn, cvm, type InferVariantPropsWithClass } from '@ssword/utils-dom';
-import { ComponentDeclaration, defineComponent, properties } from './utils';
+import type { PropType, RefType, WithClass, WithVariants } from './types';
+
+const base = 'span';
+type BaseComponent = typeof base;
 
 const cardTitleVM = cvm('leading-none font-semibold', {
 	variants: {
@@ -25,22 +29,27 @@ const cardTitleVM = cvm('leading-none font-semibold', {
 		},
 	},
 	defaultVariants: {
-		color: '',
+		color: 'default',
 		size: 'lg',
 	},
 	compoundVariants: [],
 });
 
-const CardTitleComponentDeclaration = {
-	is: 'span',
-	variantManager: cardTitleVM,
-	properties: properties<{}>(),
-	variantProps(props) {
-		const { color, size } = props;
-		return [{ color, size }, props] as const;
-	},
-} satisfies ComponentDeclaration;
+interface CardTitleProps
+	extends WithVariants<WithClass<PropType<BaseComponent>>, typeof cardTitleVM> {}
 
-const CardTitle = defineComponent(CardTitleComponentDeclaration);
+const CardTitle = forwardRef<RefType<BaseComponent>, CardTitleProps>(
+	({ className, color, size, ...intrinsicProps }, forwardedRef) => {
+		const Comp = base;
+
+		return (
+			<Comp
+				{...intrinsicProps}
+				ref={forwardedRef}
+				className={cn(cardTitleVM({ color, size }), className)}
+			/>
+		);
+	},
+);
 
 export default CardTitle;

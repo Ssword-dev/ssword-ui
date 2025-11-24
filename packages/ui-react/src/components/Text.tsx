@@ -1,7 +1,10 @@
-import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils-dom';
-import { slottable } from '../utils';
-import { SimpleCompositionPrimitiveComponent } from './types';
-import { ComponentDeclaration, defineComponent, properties } from './utils';
+import { forwardRef } from 'react';
+import { cn, cvm } from '@ssword/utils-dom';
+import type { PropType, RefType, WithClass, WithVariants } from './types';
+
+const base = 'span';
+
+type BaseComponent = typeof base;
 
 const textVM = cvm('text-base font-normal text-foreground', {
 	variants: {
@@ -74,7 +77,7 @@ const textVM = cvm('text-base font-normal text-foreground', {
 		variant: 'default',
 		size: 'base',
 		weight: 'normal',
-		alignment: 'left',
+		align: 'left',
 		leading: 'normal',
 		tracking: 'normal',
 		transform: 'normal',
@@ -84,42 +87,44 @@ const textVM = cvm('text-base font-normal text-foreground', {
 	compoundVariants: [],
 });
 
-const TextComponentDeclaration = {
-	variantManager: textVM,
-	properties: properties<{}>(),
-	variantProps(props: any) {
-		const {
-			variant,
-			size,
-			weight,
-			align,
-			leading,
-			tracking,
-			transform,
-			wrap,
-			decoration,
-			...intrinsicProps
-		} = props;
+interface TextProps extends WithVariants<WithClass<PropType<BaseComponent>>, typeof textVM> {}
 
-		return [
-			{
-				variant,
-				size,
-				weight,
-				align,
-				leading,
-				tracking,
-				transform,
-				wrap,
-				decoration,
-			},
-			intrinsicProps,
-		] as const;
-	},
-	is: 'span',
-	baseClassName: '',
-} satisfies ComponentDeclaration;
+const Text = forwardRef<RefType<BaseComponent>, TextProps>((props, forwardedRef) => {
+	const {
+		className,
+		variant,
+		size,
+		weight,
+		align,
+		leading,
+		tracking,
+		transform,
+		wrap,
+		decoration,
+		...intrinsicProps
+	} = props;
 
-const Text = defineComponent(TextComponentDeclaration);
+	const Comp = base;
+	return (
+		<Comp
+			{...intrinsicProps}
+			ref={forwardedRef}
+			className={cn(
+				textVM({
+					variant,
+					size,
+					weight,
+					align,
+					leading,
+					tracking,
+					transform,
+					wrap,
+					decoration,
+				}),
+				className,
+			)}
+		/>
+	);
+});
 
 export default Text;
