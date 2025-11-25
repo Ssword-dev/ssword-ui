@@ -72,6 +72,11 @@ const textVM = cvm('text-base font-normal text-foreground', {
 			underline: 'underline',
 			'line-through': 'line-through',
 		},
+
+		// text-overflow
+		overflow: {
+			none: 'flex-row whitespace-nowrap',
+		},
 	},
 	defaultVariants: {
 		variant: 'default',
@@ -128,3 +133,4 @@ const Text = forwardRef<RefType<BaseComponent>, TextProps>((props, forwardedRef)
 });
 
 export default Text;
+export type { TextProps as Props };

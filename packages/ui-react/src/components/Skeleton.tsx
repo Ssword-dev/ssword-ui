@@ -29,3 +29,4 @@ const Skeleton = forwardRef<RefType<BaseComponent>, SkeletonProps>(
 );
 
 export default Skeleton;
+export type { SkeletonProps as Props };

@@ -8,7 +8,8 @@
 	"dependencies": {
 		"@nx/devkit": "22.1.1",
 		"change-case": "^5.4.4",
-		"tslib": "^2.3.0"
+		"tslib": "^2.3.0",
+		"typescript": "^5.9.3"
 	},
 	"devDependencies": {
 		"@workspace/typescript": "workspace:^"

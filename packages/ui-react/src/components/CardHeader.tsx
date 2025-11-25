@@ -31,3 +31,4 @@ const CardHeader = forwardRef<RefType<ComponentBase>, CardHeaderProps>((props, f
 });
 
 export default CardHeader;
+export type { CardHeaderProps as Props };

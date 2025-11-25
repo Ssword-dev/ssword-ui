@@ -44,3 +44,4 @@ const Badge = forwardRef<RefType<ComponentBase>, BadgeProps>((props, forwardedRe
 Badge.displayName = 'Badge';
 
 export default Badge;
+export type { BadgeProps as Props };

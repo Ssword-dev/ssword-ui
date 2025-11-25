@@ -73,3 +73,4 @@ const Activatable = forwardRef<RefType<'button'>, ActivatableProps>(
 );
 
 export default Activatable;
+export type { ActivatableProps as Props };

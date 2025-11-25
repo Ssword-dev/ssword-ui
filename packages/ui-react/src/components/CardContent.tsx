@@ -28,3 +28,4 @@ const CardContent = forwardRef<RefType<ComponentBase>, CardContentProps>((props,
 });
 
 export default CardContent;
+export type { CardContentProps as Props };

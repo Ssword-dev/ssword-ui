@@ -30,3 +30,4 @@ const CardDescription = forwardRef<RefType<ComponentBase>, CardDescriptionProps>
 );
 
 export default CardDescription;
+export type { CardDescriptionProps as Props };

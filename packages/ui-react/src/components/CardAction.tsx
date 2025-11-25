@@ -25,3 +25,4 @@ const CardAction = forwardRef<RefType<ComponentBase>, CardActionProps>((props, f
 });
 
 export default CardAction;
+export type { CardActionProps as Props };

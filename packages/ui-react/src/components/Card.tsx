@@ -49,3 +49,4 @@ const Card = forwardRef<RefType<ComponentBase>, CardProps>((props, forwardedRef)
 });
 
 export default Card;
+export type { CardProps as Props };

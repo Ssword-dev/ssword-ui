@@ -53,3 +53,4 @@ const CardTitle = forwardRef<RefType<BaseComponent>, CardTitleProps>(
 );
 
 export default CardTitle;
+export type { CardTitleProps as Props };

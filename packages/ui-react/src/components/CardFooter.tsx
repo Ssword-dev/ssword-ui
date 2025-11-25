@@ -28,3 +28,4 @@ const CardFooter = forwardRef<RefType<ComponentBase>, CardFooterProps>((props, f
 });
 
 export default CardFooter;
+export type { CardFooterProps as Props };
