@@ -1,18 +1,8 @@
+import * as ts from 'typescript';
+import { formatFiles, generateFiles, Tree } from '@nx/devkit';
 import * as path from 'path';
 import { posix } from 'path';
-
-// typescript
-import * as ts from 'typescript';
-
-// nx
-import { formatFiles, generateFiles, Tree } from '@nx/devkit';
-
-// schema
 import { ComponentGeneratorSchema } from './schema';
-
-// yargs
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import { pascalCase, camelCase } from 'change-case';
 
 function normalizeWeirdWindowsPaths(p: string) {
@@ -198,58 +188,6 @@ export async function componentGenerator(
 	tree: Tree,
 	options: ComponentGeneratorSchema,
 ): Promise<void> {
-	// const args = yargs(hideBin(process.argv))
-	// 	.command('* <componentNames...>', 'Generate React components with dynamic arguments')
-	// 	.positional('componentNames', {
-	// 		type: 'string',
-	// 		description: 'Component names to generate',
-	// 		demandOption: true,
-	// 		array: true,
-	// 	})
-	// 	.option('asChild', {
-	// 		type: 'boolean',
-	// 		description: 'Add asChild prop support',
-	// 		alias: 'a',
-	// 		default: false,
-	// 	})
-	// 	.option('asChild', {
-	// 		type: 'boolean',
-	// 		description: 'Add asChild prop support',
-	// 		alias: 'a',
-	// 		default: false,
-	// 	})
-	// 	.option('variants', {
-	// 		type: 'boolean',
-	// 		description: 'Add variants support',
-	// 		alias: 'v',
-	// 		default: false,
-	// 	})
-	// 	.option('forward', {
-	// 		type: 'boolean',
-	// 		description: 'Add forwardRef support',
-	// 		alias: 'f',
-	// 		default: false,
-	// 	})
-	// 	.option('project', {
-	// 		type: 'string',
-	// 		description: 'Project name',
-	// 		default: 'packages/ui-react',
-	// 	})
-	// 	// Dynamic options for extensibility
-	// 	.option('type', {
-	// 		type: 'string',
-	// 		description: 'Component type (button, input, BaseComponent)',
-	// 	})
-	// 	.option('baseImportSource', {
-	// 		type: 'string',
-	// 		description: 'Where to import the base component if detected that it is a user-defined component.'
-	// 	})
-	// 	.check((argv) => {
-	// 		if (case)
-	// 	})
-	// 	.strict(false)
-	// 	.help()
-	// 	.parse();
 	await generateComponent(tree, options);
 	await tryCreateBarrelFile(tree, options);
 	await tryUpdateBarrelFile(tree, options);

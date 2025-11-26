@@ -1,5 +1,5 @@
 {
-	"name": "@workspace/nx-react-ui",
+	"name": "@workspace/nx-workspace",
 	"version": "0.0.1",
 	"private": true,
 	"type": "commonjs",
@@ -9,11 +9,9 @@
 		"@nx/devkit": "22.1.1",
 		"change-case": "^5.4.4",
 		"tslib": "^2.3.0",
-		"typescript": "^5.9.3",
-		"yargs": "^18.0.0"
+		"typescript": "^5.9.3"
 	},
 	"devDependencies": {
-		"@types/yargs": "^17.0.35",
 		"@workspace/typescript": "workspace:^"
 	},
 	"generators": "./generators.json"

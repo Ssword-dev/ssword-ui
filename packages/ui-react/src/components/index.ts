@@ -11,4 +11,7 @@ export { default as CardFooter, type Props as CardFooterProps } from './CardFoot
 export { default as CardHeader, type Props as CardHeaderProps } from './CardHeader';
 export { default as CardTitle, type Props as CardTitleProps } from './CardTitle';
 export { default as Skeleton, type Props as SkeletonProps } from './Skeleton';
+export { default as Terminal, type Props as TerminalProps } from './Terminal';
+export { default as TerminalHeader, type Props as TerminalHeaderProps } from './TerminalHeader';
+export { default as TerminalOutput, type Props as TerminalOutputProps } from './TerminalOutput';
 export { default as Text, type Props as TextProps } from './Text';

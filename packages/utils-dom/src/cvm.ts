@@ -55,9 +55,9 @@ function cvm<const T extends VariantManagerConfig<GenericVariantConfig>>(
 
 	// we have to reserve one more slot so we can
 	// store the default class input.
-	const compountVariantCount = config.compoundVariants.length + (defaultClass ? 1 : 0);
+	const compoundVariantCount = config.compoundVariants.length + (defaultClass ? 1 : 0);
 
-	const totalPossibleClassInputs = variantNameCount + compountVariantCount;
+	const totalPossibleClassInputs = variantNameCount + compoundVariantCount;
 
 	const vm: VariantManager<T> = (input: VariantInput<T>) => {
 		const resolvedVariantValues: VariantValues<T> = Object.assign(

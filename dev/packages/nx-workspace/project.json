@@ -1,5 +1,5 @@
 {
-	"name": "@workspace/nx-react-ui",
+	"name": "@workspace/nx-workspace",
 	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "dev/packages/nx-react-ui/src",
 	"projectType": "library",
