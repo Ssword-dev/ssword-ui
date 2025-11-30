@@ -1,0 +1,23 @@
+{
+	"name": "@workspace/eslint",
+	"type": "module",
+	"author": {
+		"name": "ssword",
+		"email": "ssword.dev@gmail.com"
+	},
+	"devDependencies": {},
+	"exports": {
+		"./config": {
+			"import": "./config.js",
+			"default": "./config.js",
+			"node": "./config.js",
+			"types": "./config.d.ts"
+		},
+		"./config.js": {
+			"import": "./config.js",
+			"default": "./config.js",
+			"node": "./config.js",
+			"types": "./config.d.ts"
+		}
+	}
+}

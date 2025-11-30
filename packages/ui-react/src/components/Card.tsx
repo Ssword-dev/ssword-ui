@@ -1,6 +1,6 @@
 import { cn, cvm } from '@ssword/utils-dom';
 import { forwardRef } from 'react';
-import { PropType, RefType, WithClass, WithVariants } from './types';
+import { ClassProps, Props, RefType, VariantProps } from './types';
 
 const base = 'div';
 
@@ -33,7 +33,7 @@ const cardVM = cvm(
 	},
 );
 
-interface CardProps extends WithVariants<WithClass<PropType<ComponentBase>>, typeof cardVM> {}
+interface CardProps extends Props<ComponentBase>, ClassProps, VariantProps<typeof cardVM> {}
 
 const Card = forwardRef<RefType<ComponentBase>, CardProps>((props, forwardedRef) => {
 	const Comp = base;

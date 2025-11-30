@@ -1,46 +1,44 @@
+'use client';
 import React, { forwardRef } from 'react';
 
-import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils-dom';
+import { Slot } from '@radix-ui/react-slot';
+import { cn, cvm } from '@ssword/utils-dom';
 
-// component configuration
+import type { RefType, Props, ClassProps, AsChildProps, VariantProps } from './types.ts';
 
-// component inheritance base
 const base = 'div';
 
-// component variant manager
-const terminalHeaderVM = cvm('', {
+type ComponentBase = typeof base;
+
+const terminalHeaderVM = cvm('flex flex-row gap-2 px-2 py-3 bg-surface rounded-t-md', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
-// type alias for typeof base
-type BaseComponent = typeof base;
-
 interface TerminalHeaderProps
-	extends React.ComponentProps<BaseComponent>,
-		InferVariantPropsWithClass<typeof terminalHeaderVM> {
-	/* props here */
-}
+	extends Omit<Props<ComponentBase>, 'children'>,
+		ClassProps,
+		AsChildProps,
+		VariantProps<typeof terminalHeaderVM> {}
 
-const TerminalHeader = forwardRef(({ className, ...props }: TerminalHeaderProps, forwardedRef) => {
-	const Comp = base;
-
-	// split out children
-	const { children, ...restProps } = props;
-
-	// compute variant classes
-	const classes = terminalHeaderVM(restProps);
-
-	return (
-		<Comp
-			{...restProps}
-			ref={forwardedRef}
-			className={cn(classes, className)}
-		>
-			{props.children}
-		</Comp>
-	);
-});
+const TerminalHeader = forwardRef<RefType<ComponentBase>, TerminalHeaderProps>(
+	(props: TerminalHeaderProps, forwardedRef) => {
+		const { className, asChild = false, ...restProps } = props;
+		const Comp = asChild ? Slot : base;
+		return (
+			<Comp
+				{...restProps}
+				ref={forwardedRef}
+				className={cn(terminalHeaderVM({}), className)}
+			>
+				<div className="w-4 aspect-square bg-accent rounded-full" />
+				<div className="w-4 aspect-square bg-secondary rounded-full" />
+				<div className="w-4 aspect-square bg-primary rounded-full" />
+			</Comp>
+		);
+	},
+);
 
 export default TerminalHeader;
+export type { TerminalHeaderProps as Props };

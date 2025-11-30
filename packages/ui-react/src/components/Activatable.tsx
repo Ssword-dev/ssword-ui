@@ -1,18 +1,10 @@
 import { useState, useEffect, useRef, type PointerEvent, forwardRef } from 'react';
 import { cn, cvm } from '@ssword/utils-dom';
 import { Slot } from '@radix-ui/react-slot';
-import { RefType } from './types';
+import { AsChildProps, ClassProps, Props, RefType } from './types';
 
 export interface ActivatableChangeEventMetadata {
 	value: boolean;
-}
-
-export interface ActivatableProps extends Omit<React.ComponentProps<'button'>, 'onToggle'> {
-	normallyOpen?: boolean;
-	asChild?: boolean;
-	onToggle?: (e: ActivatableChangeEventMetadata) => void;
-	className?: string;
-	children?: React.ReactNode;
 }
 
 const activatableVM = cvm(
@@ -35,6 +27,13 @@ const activatableVM = cvm(
 		compoundVariants: [],
 	},
 );
+export interface ActivatableProps
+	extends Omit<Props<'button'>, 'onToggle'>,
+		ClassProps,
+		AsChildProps {
+	normallyOpen?: boolean;
+	onToggle?: (e: ActivatableChangeEventMetadata) => void;
+}
 
 const Activatable = forwardRef<RefType<'button'>, ActivatableProps>(
 	({ normallyOpen = false, asChild = false, onToggle, className, children, ...rest }, ref) => {

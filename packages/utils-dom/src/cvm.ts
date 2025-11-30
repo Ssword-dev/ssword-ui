@@ -27,11 +27,11 @@ type VariantValues<T extends VariantManagerConfig<GenericVariantConfig>> = {
 	[K in keyof T['variants']]: keyof T['variants'][K];
 };
 
-type VariantManager<
+interface VariantManager<
 	T extends VariantManagerConfig<GenericVariantConfig> = VariantManagerConfig<GenericVariantConfig>,
-> = {
+> {
 	(props: VariantInput<T>): string;
-};
+}
 
 type InferVariantProps<V extends VariantManager> = Parameters<V>[0];
 
@@ -86,6 +86,7 @@ function cvm<const T extends VariantManagerConfig<GenericVariantConfig>>(
 		// optim: use precomputed variant names array.
 		for (const variantName of variantNames) {
 			const variantValue = resolvedVariantValues[variantName as keyof VariantValues<T>] as string;
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const classInput = config.variants[variantName]![variantValue];
 
 			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -117,8 +118,9 @@ function cvm<const T extends VariantManagerConfig<GenericVariantConfig>>(
 		// eslint-disable-next-line prefer-spread
 		return clsx.apply(null, classInputs);
 	};
+
 	return vm;
 }
 
 export default cvm;
-export { type InferVariantProps, type InferVariantPropsWithClass };
+export type { InferVariantProps, InferVariantPropsWithClass, VariantManager };

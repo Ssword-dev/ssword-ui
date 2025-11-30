@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { cn, cvm } from '@ssword/utils-dom';
-import type { PropType, RefType, WithClass, WithVariants } from './types';
+import type { AsChildProps, ClassProps, Props, RefType, VariantProps } from './types';
 
 const base = 'span';
 
@@ -77,6 +77,11 @@ const textVM = cvm('text-base font-normal text-foreground', {
 		overflow: {
 			none: 'flex-row whitespace-nowrap',
 		},
+
+		interactity: {
+			normal: '',
+			none: 'select-none',
+		},
 	},
 	defaultVariants: {
 		variant: 'default',
@@ -88,11 +93,16 @@ const textVM = cvm('text-base font-normal text-foreground', {
 		transform: 'normal',
 		wrap: 'normal',
 		decoration: 'none',
+		interactive: 'normal',
 	},
 	compoundVariants: [],
 });
 
-interface TextProps extends WithVariants<WithClass<PropType<BaseComponent>>, typeof textVM> {}
+interface TextProps
+	extends Props<BaseComponent>,
+		ClassProps,
+		AsChildProps,
+		VariantProps<typeof textVM> {}
 
 const Text = forwardRef<RefType<BaseComponent>, TextProps>((props, forwardedRef) => {
 	const {
@@ -106,6 +116,7 @@ const Text = forwardRef<RefType<BaseComponent>, TextProps>((props, forwardedRef)
 		transform,
 		wrap,
 		decoration,
+		interactity,
 		...intrinsicProps
 	} = props;
 
@@ -125,6 +136,7 @@ const Text = forwardRef<RefType<BaseComponent>, TextProps>((props, forwardedRef)
 					transform,
 					wrap,
 					decoration,
+					interactity,
 				}),
 				className,
 			)}

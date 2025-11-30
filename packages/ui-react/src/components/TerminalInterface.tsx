@@ -10,27 +10,27 @@ const base = 'div';
 
 type ComponentBase = typeof base;
 
-const terminalVM = cvm('', {
+const terminalInterfaceVM = cvm('px-2 py-1 bg-surface/70 font-mono', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
-interface TerminalProps
+interface TerminalInterfaceProps
 	extends Props<ComponentBase>,
 		ClassProps,
 		AsChildProps,
-		VariantProps<typeof terminalVM> {}
+		VariantProps<typeof terminalInterfaceVM> {}
 
-const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
-	(props: TerminalProps, forwardedRef) => {
+const TerminalInterface = forwardRef<RefType<ComponentBase>, TerminalInterfaceProps>(
+	(props: TerminalInterfaceProps, forwardedRef) => {
 		const { className, asChild = false, ...restProps } = props;
 		const Comp = asChild ? Slot : base;
 		return (
 			<Comp
 				{...restProps}
 				ref={forwardedRef}
-				className={cn(terminalVM({}), className)}
+				className={cn(terminalInterfaceVM({}), className)}
 			>
 				{props.children}
 			</Comp>
@@ -38,5 +38,5 @@ const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
 	},
 );
 
-export default Terminal;
-export type { TerminalProps as Props };
+export default TerminalInterface;
+export type { TerminalInterfaceProps as Props };

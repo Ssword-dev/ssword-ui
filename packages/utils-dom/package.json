@@ -27,6 +27,7 @@
 		"typecheck": "nx @ssword/utils-dom"
 	},
 	"dependencies": {
+		"@workspace/eslint": "workspace:^",
 		"tailwind-merge": "^3.4.0"
 	},
 	"devDependencies": {

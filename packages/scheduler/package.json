@@ -27,6 +27,7 @@
 		"typecheck": "nx @ssword/scheduler"
 	},
 	"dependencies": {
+		"@workspace/eslint": "workspace:^",
 		"tinyqueue": "^3.0.0"
 	},
 	"devDependencies": {

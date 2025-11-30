@@ -5,15 +5,13 @@ import { posix } from 'path';
 import * as ts from 'typescript';
 
 // nx
-import { formatFiles, generateFiles, Tree } from '@nx/devkit';
+import { formatFiles, getProjects, Tree } from '@nx/devkit';
 
 // schema
 import { ComponentGeneratorSchema } from './schema';
 
-// yargs
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import { pascalCase, camelCase } from 'change-case';
+import { createTemplateHelpers } from './templateHelpers';
+import { camelCase, pascalCase } from 'change-case';
 
 function normalizeWeirdWindowsPaths(p: string) {
 	return posix.join(p);
@@ -21,6 +19,110 @@ function normalizeWeirdWindowsPaths(p: string) {
 
 function isRelative(p: string) {
 	return /^(\.\/|\.\.\/)/.test(normalizeWeirdWindowsPaths(p));
+}
+
+interface ComponentFileOptions {
+	forward?: boolean;
+	asChild?: boolean;
+	variants?: boolean;
+	componentName: string;
+}
+
+function createComponentFile({
+	forward = false,
+	asChild = false,
+	variants = false,
+	componentName,
+}: ComponentFileOptions) {
+	const componentExportName = pascalCase(componentName);
+	const { lines } = createTemplateHelpers();
+	const typeImports = [
+		forward && 'RefType',
+		'Props',
+		'ClassProps',
+		asChild && 'AsChildProps',
+		variants && 'VariantProps',
+	].filter(Boolean);
+	const propTypeBases = [
+		'Props<ComponentBase>',
+		'ClassProps',
+		asChild && 'AsChildProps',
+		variants && `VariantProps<typeof ${componentName}VM>`,
+	].filter(Boolean);
+	const reactImports = [forward && 'forwardRef'].filter(Boolean);
+
+	function conditionalImports() {
+		return lines(
+			"import { Slot } from '@radix-ui/react-slot';",
+			`import { ${['cn', variants && 'cvm']
+				.filter(Boolean)
+				.join(', ')} } from '@ssword/utils-dom';`,
+		);
+	}
+
+	function componentConfiguration() {
+		return lines(
+			"const base = 'div';",
+			'',
+			'type ComponentBase = typeof base',
+			'',
+			...(variants
+				? [
+						`const ${componentName}VM = cvm('', {`,
+						'\tvariants: {},',
+						'\tdefaultVariants: {},',
+						'\tcompoundVariants: []',
+						'});',
+					]
+				: []),
+		);
+	}
+
+	function componentPropsInterface() {
+		return `interface ${componentExportName}Props extends ${propTypeBases.join(', ')} {}`;
+	}
+
+	function renderFunction() {
+		return lines(
+			'(',
+			`props: ${componentExportName}Props,`,
+			forward ? 'forwardedRef' : '',
+			') => {',
+			`const { ${['className', asChild && 'asChild = false'].filter(Boolean).join(', ')}, ...restProps } = props;`,
+			`const Comp = ${asChild ? 'asChild ? Slot : base' : 'base'};`,
+			'return (',
+			'<Comp',
+			'{...restProps}',
+			forward && 'ref={forwardedRef}',
+			'className={',
+			`cn(${[variants && `${componentName}VM({})`, 'className'].filter(Boolean).join(',')})`,
+			'}',
+			'>',
+			'{props.children}',
+			'</Comp>',
+			');',
+			'}',
+		);
+	}
+	return lines(
+		"'use client'",
+
+		`import React, { ${reactImports.join(', ')} } from 'react';`,
+		'',
+		conditionalImports(),
+		'',
+		`import type { ${typeImports.join(', ')} } from './types.ts';`,
+		'',
+		componentConfiguration(),
+		'',
+		componentPropsInterface(),
+		'',
+		`const ${componentExportName} =`,
+		`${forward ? `forwardRef<RefType<ComponentBase>, ${componentExportName}Props>(${renderFunction()})` : renderFunction()}`,
+		'',
+		`export default ${componentExportName};`,
+		`export type { ${componentExportName}Props as Props };`,
+	);
 }
 
 function sortExportsAlphabetically(source: ts.SourceFile): ts.SourceFile {
@@ -77,16 +179,24 @@ function sortExportsAlphabetically(source: ts.SourceFile): ts.SourceFile {
 	);
 }
 
-function generateComponent(tree: Tree, options: ComponentGeneratorSchema) {
-	const { project, name, ...templateOptions } = options;
-	const componentsDir = path.join(project, 'src', 'components');
+export function getProjectRoot(tree: Tree, projectName: string) {
+	const projects = getProjects(tree);
+	const project = projects.get(projectName);
+	if (!project) throw new Error(`Project ${projectName} not found`);
+	return project.root;
+}
 
-	generateFiles(tree, path.join(__dirname, 'files'), componentsDir, {
-		...templateOptions,
-		name: pascalCase(options.name),
-		componentExportName: pascalCase(name),
-		componentName: camelCase(options.name),
-	});
+function generateComponents(tree: Tree, options: ComponentGeneratorSchema) {
+	const { project, components, ...templateOptions } = options;
+	const projectDir = getProjectRoot(tree, project);
+	const componentsDir = path.join(projectDir, 'src', 'components');
+
+	for (const component of components) {
+		tree.write(
+			path.join(componentsDir, pascalCase(component) + '.tsx'),
+			createComponentFile({ ...templateOptions, componentName: camelCase(component) }),
+		);
+	}
 
 	return Promise.resolve();
 }
@@ -116,7 +226,9 @@ function createComponentExport(name: string): ts.ExportDeclaration {
 
 function tryCreateBarrelFile(tree: Tree, options: ComponentGeneratorSchema) {
 	const { project } = options;
-	const componentsDir = path.join(project, 'src', 'components');
+	const projectDir = getProjectRoot(tree, project);
+	const componentsDir = path.join(projectDir, 'src', 'components');
+
 	const componentsBarrelFile = path.join(componentsDir, 'index.ts');
 
 	if (!tree.exists(componentsBarrelFile)) {
@@ -126,8 +238,10 @@ function tryCreateBarrelFile(tree: Tree, options: ComponentGeneratorSchema) {
 }
 
 function tryUpdateBarrelFile(tree: Tree, options: ComponentGeneratorSchema) {
-	const { project, name } = options;
-	const componentsDir = path.join(project, 'src', 'components');
+	const { project, components } = options;
+	const projectDir = getProjectRoot(tree, project);
+	const componentsDir = path.join(projectDir, 'src', 'components');
+
 	const componentsBarrelFile = path.join(componentsDir, 'index.ts');
 
 	if (!tree.exists(componentsBarrelFile)) {
@@ -138,11 +252,11 @@ function tryUpdateBarrelFile(tree: Tree, options: ComponentGeneratorSchema) {
 	const barrelSourceFileContent = tree.read(componentsBarrelFile, 'utf-8');
 
 	if (!barrelSourceFileContent || barrelSourceFileContent.trim() === '') {
-		const newExport = createComponentExport(name);
+		const newExports = components.map((comp) => createComponentExport(comp));
 		const printer = ts.createPrinter();
 		const newBarrelSourceCode = printer.printFile(
 			ts.factory.createSourceFile(
-				[newExport],
+				[...newExports],
 				ts.factory.createToken(ts.SyntaxKind.EndOfFileToken),
 				ts.NodeFlags.None,
 			),
@@ -159,26 +273,24 @@ function tryUpdateBarrelFile(tree: Tree, options: ComponentGeneratorSchema) {
 		ts.ScriptKind.TS,
 	);
 
-	const componentName = pascalCase(name);
-	const exportAlreadyExists = barrelSourceFile.statements.some((statement) => {
-		if (
-			ts.isExportDeclaration(statement) &&
-			statement.moduleSpecifier &&
-			ts.isStringLiteral(statement.moduleSpecifier)
-		) {
-			return statement.moduleSpecifier.text === `./${componentName}`;
-		}
-		return false;
-	});
-
-	if (exportAlreadyExists) {
-		console.log(`Export for ${componentName} already exists in barrel file`);
-		return Promise.resolve();
-	}
+	const oldExports = new Set(
+		barrelSourceFile.statements
+			.filter(ts.isExportDeclaration)
+			.map(
+				(exports) =>
+					exports.moduleSpecifier &&
+					ts.isStringLiteral(exports.moduleSpecifier) &&
+					exports.moduleSpecifier.text,
+			)
+			.filter(Boolean),
+	);
+	const newExports = components
+		.filter((component) => !oldExports.has(component))
+		.map((component) => createComponentExport(component));
 
 	const updatedSourceFile = ts.factory.updateSourceFile(
 		barrelSourceFile,
-		[...barrelSourceFile.statements, createComponentExport(name)],
+		[...barrelSourceFile.statements, ...newExports],
 		false,
 		barrelSourceFile.referencedFiles,
 		barrelSourceFile.typeReferenceDirectives,
@@ -198,59 +310,7 @@ export async function componentGenerator(
 	tree: Tree,
 	options: ComponentGeneratorSchema,
 ): Promise<void> {
-	// const args = yargs(hideBin(process.argv))
-	// 	.command('* <componentNames...>', 'Generate React components with dynamic arguments')
-	// 	.positional('componentNames', {
-	// 		type: 'string',
-	// 		description: 'Component names to generate',
-	// 		demandOption: true,
-	// 		array: true,
-	// 	})
-	// 	.option('asChild', {
-	// 		type: 'boolean',
-	// 		description: 'Add asChild prop support',
-	// 		alias: 'a',
-	// 		default: false,
-	// 	})
-	// 	.option('asChild', {
-	// 		type: 'boolean',
-	// 		description: 'Add asChild prop support',
-	// 		alias: 'a',
-	// 		default: false,
-	// 	})
-	// 	.option('variants', {
-	// 		type: 'boolean',
-	// 		description: 'Add variants support',
-	// 		alias: 'v',
-	// 		default: false,
-	// 	})
-	// 	.option('forward', {
-	// 		type: 'boolean',
-	// 		description: 'Add forwardRef support',
-	// 		alias: 'f',
-	// 		default: false,
-	// 	})
-	// 	.option('project', {
-	// 		type: 'string',
-	// 		description: 'Project name',
-	// 		default: 'packages/ui-react',
-	// 	})
-	// 	// Dynamic options for extensibility
-	// 	.option('type', {
-	// 		type: 'string',
-	// 		description: 'Component type (button, input, BaseComponent)',
-	// 	})
-	// 	.option('baseImportSource', {
-	// 		type: 'string',
-	// 		description: 'Where to import the base component if detected that it is a user-defined component.'
-	// 	})
-	// 	.check((argv) => {
-	// 		if (case)
-	// 	})
-	// 	.strict(false)
-	// 	.help()
-	// 	.parse();
-	await generateComponent(tree, options);
+	await generateComponents(tree, options);
 	await tryCreateBarrelFile(tree, options);
 	await tryUpdateBarrelFile(tree, options);
 	await formatFiles(tree);

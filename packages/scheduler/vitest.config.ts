@@ -1,4 +1,4 @@
-import { mergeConfig, defineConfig, UserConfigExport } from 'vitest/config';
+import { mergeConfig, defineConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 import { LibraryConfig } from '@workspace/vite/config';
 

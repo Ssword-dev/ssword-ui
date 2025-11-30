@@ -10,27 +10,27 @@ const base = 'div';
 
 type ComponentBase = typeof base;
 
-const terminalVM = cvm('', {
+const terminalInputVM = cvm('inline-flex flex-row text-wrap', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
-interface TerminalProps
+interface TerminalInputProps
 	extends Props<ComponentBase>,
 		ClassProps,
 		AsChildProps,
-		VariantProps<typeof terminalVM> {}
+		VariantProps<typeof terminalInputVM> {}
 
-const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
-	(props: TerminalProps, forwardedRef) => {
+const TerminalInput = forwardRef<RefType<ComponentBase>, TerminalInputProps>(
+	(props: TerminalInputProps, forwardedRef) => {
 		const { className, asChild = false, ...restProps } = props;
 		const Comp = asChild ? Slot : base;
 		return (
 			<Comp
 				{...restProps}
 				ref={forwardedRef}
-				className={cn(terminalVM({}), className)}
+				className={cn(terminalInputVM({}), className)}
 			>
 				{props.children}
 			</Comp>
@@ -38,5 +38,5 @@ const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
 	},
 );
 
-export default Terminal;
-export type { TerminalProps as Props };
+export default TerminalInput;
+export type { TerminalInputProps as Props };

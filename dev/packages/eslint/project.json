@@ -1,0 +1,33 @@
+{
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"name": "@workspace/eslint",
+
+	"root": "dev/packages/eslint",
+	"sourceRoot": "dev/packages/eslint",
+
+	"projectType": "library",
+	"tags": [],
+
+	"targets": {
+		"build": {
+			"executor": "nx:noop",
+			"cache": false
+		},
+		"test": {
+			"executor": "nx:noop",
+			"cache": false
+		},
+		"lint": {
+			"executor": "nx:noop",
+			"cache": false
+		},
+		"format": {
+			"executor": "nx:noop",
+			"cache": false
+		},
+		"dev": {
+			"executor": "nx:noop",
+			"cache": false
+		}
+	}
+}

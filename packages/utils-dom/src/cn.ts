@@ -1,9 +1,9 @@
-import { twMerge } from 'tailwind-merge';
 import type { ClassInput } from './clsx';
 import clsx from './clsx';
+import twDedupe from './twDedupe';
 
 function cn(...inputs: ClassInput[]): string {
-	return twMerge(clsx(...inputs));
+	return twDedupe(clsx(...inputs));
 }
 
 export default cn;

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { cn, cvm } from '@ssword/utils-dom';
-import type { PropType, RefType, WithClass, WithVariants } from './types';
+import type { ClassProps, Props, RefType, VariantProps } from './types';
 
 const base = 'span';
 type BaseComponent = typeof base;
@@ -11,8 +11,7 @@ const skeletonVM = cvm('skeleton animate-skeleton-pulse', {
 	compoundVariants: [],
 });
 
-interface SkeletonProps
-	extends WithVariants<WithClass<PropType<BaseComponent>>, typeof skeletonVM> {}
+interface SkeletonProps extends Props<BaseComponent>, ClassProps, VariantProps<typeof skeletonVM> {}
 
 const Skeleton = forwardRef<RefType<BaseComponent>, SkeletonProps>(
 	({ className, ...intrinsicProps }, forwardedRef) => {

@@ -9,7 +9,7 @@ const external = (id) => {
 /**
  * @returns {import("rollup").Config[]}
  */
-export const createLibraryConfig = ({ input, pkg }) => {
+export const LibraryConfig = ({ input, pkg }) => {
 	return [
 		{
 			input,
@@ -18,7 +18,7 @@ export const createLibraryConfig = ({ input, pkg }) => {
 				esbuild({
 					target: 'esnext',
 					tsconfig: 'tsconfig.json',
-					jsxFactory: 'React.createElement',
+					jsxFactory: 'React.Element',
 					jsxFragment: 'React.Fragment',
 				}),
 			],

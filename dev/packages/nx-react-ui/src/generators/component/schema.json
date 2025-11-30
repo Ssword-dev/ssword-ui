@@ -4,16 +4,15 @@
 	"title": "Component Generator",
 	"type": "object",
 	"properties": {
-		"name": {
-			"type": "string",
-			"description": "",
-			"$default": {
-				"$source": "argv",
-				"index": 0
+		"components": {
+			"type": "array",
+			"description": "components to generate",
+			"items": {
+				"type": "string",
+				"x-prompt": "Add a component name"
 			},
-			"x-prompt": "What name would you like to use?"
+			"x-type": "string[]"
 		},
-
 		"asChild": {
 			"type": "boolean",
 			"description": "",
@@ -38,5 +37,5 @@
 			"default": "packages/ui-react"
 		}
 	},
-	"required": ["name"]
+	"required": ["components"]
 }

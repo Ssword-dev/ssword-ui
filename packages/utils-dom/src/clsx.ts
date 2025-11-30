@@ -1,18 +1,22 @@
-type ClassInput =
-	| Record<string, boolean>
-	| string
-	| number
-	| null
-	| undefined
-	| false
-	| ClassInput[];
+type ConditionalClassRecord = Record<string, boolean>;
+type FalsyClass = null | undefined | false | '' | 0 | Record<string, false> | FalsyClass[];
+type ClassInput = ConditionalClassRecord | string | number | FalsyClass | ClassInput[];
 
-interface Clsx {
-	(): string;
+interface FalsyClassInputClsxOverloads {
+	(): '';
+	(input: FalsyClass): '';
+	(inputs: FalsyClass[]): '';
+	(...inputs: FalsyClass[]): '';
+}
+
+interface TruthyClassInputClsxOverloads {
+	(input: ClassInput[]): string;
 	(...inputs: ClassInput[]): string;
 }
 
-function _clsx() {
+interface Clsx extends FalsyClassInputClsxOverloads, TruthyClassInputClsxOverloads {}
+
+/* @__PURE__ */ function _clsx() {
 	let totalClasses = 0;
 
 	function count(input: ClassInput) {
@@ -22,14 +26,12 @@ function _clsx() {
 		if (typeof input === 'string' || typeof input === 'number') {
 			totalClasses++;
 		} else if (Array.isArray(input)) {
-			input.forEach(count);
+			for (let i = 0; i < input.length; i++) {
+				count(input[i]);
+			}
 		} else {
-			for (const k in input) {
-				// this is an optimization of
-				// using raw boolean expression
-				// instead of an if expression.
-				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-				k && input[k] && totalClasses++;
+			for (const k of Object.keys(input)) {
+				if (k && input[k]) totalClasses++;
 			}
 		}
 	}
@@ -44,14 +46,14 @@ function _clsx() {
 			}
 		} else {
 			for (const k in input) {
-				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-				k && input[k] && (classNames[idx++] = k);
+				if (k && input[k]) classNames[idx++] = k;
 			}
 		}
 	}
 
 	// optim: no need to convert `arguments` to an array.
-
+	// hint: spread arguments still has some overhead because
+	// it needs to convert the arguments to an array.
 	for (let i = 0; i < arguments.length; i++) {
 		// eslint-disable-next-line prefer-rest-params
 		count(arguments[i]);

@@ -3,7 +3,13 @@
 		"component": {
 			"factory": "./src/generators/component/component",
 			"schema": "./src/generators/component/schema.json",
-			"description": "Generates A Component"
+			"description": "Generates A Component",
+			"aliases": {
+				"components": "c",
+				"forward": "f",
+				"variants": "v",
+				"asChild": "a"
+			}
 		}
 	}
 }

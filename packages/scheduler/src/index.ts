@@ -25,9 +25,9 @@ function createScheduler(): Scheduler {
 	let nextId = 0;
 
 	function createTask(fn: () => void, priority: number) {
-		if (taskPool.length) {
-			const pooledTask = taskPool.pop()!;
+		const pooledTask = taskPool.pop();
 
+		if (pooledTask) {
 			pooledTask.fn = fn;
 			pooledTask.priority = priority;
 
@@ -64,7 +64,9 @@ function createScheduler(): Scheduler {
 				return;
 			}
 
-			const task = scheduledTasks.pop()!;
+			const task = scheduledTasks.pop();
+
+			if (!task) return;
 
 			let result: unknown | Promise<unknown>;
 

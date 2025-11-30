@@ -1,5 +1,15 @@
 'use client';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+	EventHandler,
+	MouseEventHandler,
+	PointerEventHandler,
+	SyntheticEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import {
 	Card,
 	CardHeader,
@@ -12,6 +22,14 @@ import {
 	Services,
 	Badge,
 	Box,
+	Terminal,
+	TerminalHeader,
+	TerminalInterface,
+	TerminalPrompt,
+	TerminalInput,
+	TerminalLine,
+	Screen,
+	Stack,
 } from '@ssword-ui/react';
 import {
 	Bold as BoldIcon,
@@ -25,22 +43,21 @@ import {
 	Accessibility as AccessibilityIcon,
 	Github as GithubIcon,
 	Check as CheckIcon,
+	Sun,
+	Moon,
+	MousePointer,
 } from 'lucide-react';
 
-import PostHeroSection from '@/components/PostHeroSection';
-import PostHeroSectionView from '@/components/PostHeroSectionView';
-import PostHeroSectionSample from '@/components/PostHeroSectionSample';
-import GetStartedSectionView from '@/components/GetStartedSectionView';
-import GetStartedSectionSample from '@/components/GetStartedSectionSample';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { cn } from '@ssword/utils-dom';
+import DevTools from '@/components/DevTools';
 
 function scrollToHash(hash: string) {
 	try {
 		const el = document.querySelector(hash);
 		if (el) el.scrollIntoView({ behavior: 'smooth' });
-	} catch (e) {
+	} catch {
 		// ignore
 	}
 }
@@ -73,15 +90,10 @@ const featuresData = [
 	},
 ];
 
-const postHeroSections = [
-	{
-		view: GetStartedSectionView,
-		sample: GetStartedSectionSample,
-		id: 'get-started',
-	},
-];
-
 function HeroSection() {
+	// theme
+	const themeContext = Services.Theming.useTheme();
+
 	const [boldFlag, setBoldFlag] = useState(false);
 	const [italicFlag, setItalicFlag] = useState(false);
 	const [strikeThroughFlag, setStrikeThroughFlag] = useState(false);
@@ -96,12 +108,9 @@ function HeroSection() {
 	const handlePremiumToggle = useCallback(() => setPremiumFeature((v) => !v), []);
 	const handleThemeToggle = useCallback(() => {
 		themeContext.setThemeMode((m) => (m === 'dark' ? 'light' : 'dark'));
-	}, []);
+	}, [themeContext]);
 	const gotoGetStarted = useCallback(() => scrollToHash('#get-started'), []);
 	const viewOnGithub = useCallback(() => window.open(githubLink, '_blank'), []);
-
-	// theme
-	const themeContext = Services.Theming.useTheme();
 
 	const formatActiveFeatures = useMemo(() => {
 		return [boldFlag && 'Bold', italicFlag && 'Italic', strikeThroughFlag && 'Strike'].filter(
@@ -265,6 +274,7 @@ function HeroSection() {
 export default function Home(): React.JSX.Element {
 	return (
 		<>
+			<DevTools />
 			<Header />
 			<main className="flex-1">
 				{' '}
@@ -284,13 +294,17 @@ export default function Home(): React.JSX.Element {
 								</p>
 							</div>
 
-							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+							<Stack
+								orientation="vertical"
+								className="lg:flex-row"
+								gap="2rem"
+							>
 								{featuresData.map((feature) => {
 									const Icon = feature.icon;
 									return (
 										<Card
 											key={feature.title}
-											className="text-center hover:shadow-lg duration-300 hover:translate-y-1 border-border-muted/30 group"
+											className="flex-1 text-center hover:shadow-lg duration-300 hover:translate-y-1 border-border-muted/30 group"
 											transition="all"
 											borderAccent="primary"
 										>
@@ -307,23 +321,33 @@ export default function Home(): React.JSX.Element {
 										</Card>
 									);
 								})}
-							</div>
+							</Stack>
 						</div>
 					</section>
 
 					<section className="flex flex-col h-screen w-screen px-2">
-						<Box
-							align="center"
-							justify="end"
-						>
-							<Text
-								wrap="pretty"
-								align="left"
-								size="5xl"
-							>
-								Easy Installation
-							</Text>
-						</Box>
+						<Card className="h-full w-full">
+							<CardTitle className="mx-auto">
+								<Text
+									wrap="pretty"
+									align="left"
+									size="5xl"
+								>
+									Easy Installation
+								</Text>
+							</CardTitle>
+							<CardContent>
+								<Terminal>
+									<TerminalHeader />
+									<TerminalInterface>
+										<TerminalLine>
+											<TerminalPrompt>$ user123 &gt;&nbsp;</TerminalPrompt>
+											<TerminalInput>npm install @ssword-ui/react</TerminalInput>
+										</TerminalLine>
+									</TerminalInterface>
+								</Terminal>
+							</CardContent>
+						</Card>
 					</section>
 				</article>
 			</main>

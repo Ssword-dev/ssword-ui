@@ -1,27 +1,30 @@
 import { cn, cvm } from '@ssword/utils-dom';
-import { PropType, RefType, WithClass, WithVariants } from './types';
+import { ClassProps, Props, RefType, VariantProps } from './types';
 import { forwardRef } from 'react';
 
 const base = 'div';
 
 type ComponentBase = typeof base;
 
-const cardContentVM = cvm(cn('px-6 flex-grow'), {
+const cardContentVM = cvm('px-6 flex-grow', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
 interface CardContentProps
-	extends WithVariants<WithClass<PropType<ComponentBase>>, typeof cardContentVM> {}
+	extends Props<ComponentBase>,
+		ClassProps,
+		VariantProps<typeof cardContentVM> {}
 
 const CardContent = forwardRef<RefType<ComponentBase>, CardContentProps>((props, forwardedRef) => {
 	const Comp = base;
-	const { ...baseProps } = props;
+	const { className, ...baseProps } = props;
 
 	return (
 		<Comp
 			{...baseProps}
+			className={cn(cardContentVM({}), className)}
 			ref={forwardedRef}
 		/>
 	);

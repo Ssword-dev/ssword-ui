@@ -6,31 +6,31 @@ import { cn, cvm } from '@ssword/utils-dom';
 
 import type { RefType, Props, ClassProps, AsChildProps, VariantProps } from './types.ts';
 
-const base = 'div';
+const base = 'span';
 
 type ComponentBase = typeof base;
 
-const terminalVM = cvm('', {
+const terminalLineVM = cvm('inline-flex flex-row break-words', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
-interface TerminalProps
+interface TerminalLineProps
 	extends Props<ComponentBase>,
 		ClassProps,
 		AsChildProps,
-		VariantProps<typeof terminalVM> {}
+		VariantProps<typeof terminalLineVM> {}
 
-const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
-	(props: TerminalProps, forwardedRef) => {
+const TerminalLine = forwardRef<RefType<ComponentBase>, TerminalLineProps>(
+	(props: TerminalLineProps, forwardedRef) => {
 		const { className, asChild = false, ...restProps } = props;
 		const Comp = asChild ? Slot : base;
 		return (
 			<Comp
 				{...restProps}
 				ref={forwardedRef}
-				className={cn(terminalVM({}), className)}
+				className={cn(terminalLineVM({}), className)}
 			>
 				{props.children}
 			</Comp>
@@ -38,5 +38,5 @@ const Terminal = forwardRef<RefType<ComponentBase>, TerminalProps>(
 	},
 );
 
-export default Terminal;
-export type { TerminalProps as Props };
+export default TerminalLine;
+export type { TerminalLineProps as Props };

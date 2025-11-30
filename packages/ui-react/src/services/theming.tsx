@@ -129,7 +129,11 @@ const createFetchThemeFn = (
 			cache.set(themeMode, cssText);
 			applyStyle(cssText);
 			setRequestContext(null);
-		} catch (e: any) {
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e; // propagate downwards.
+			}
+
 			if (e.name === 'AbortError') return;
 			console.error('Theme fetch failed', e);
 			setRequestContext(null);

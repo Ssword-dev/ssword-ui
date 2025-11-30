@@ -1,9 +1,0 @@
-{
-	"generators": {
-		"component": {
-			"factory": "./src/generators/dev-lib/generator.ts",
-			"schema": "./src/generators/dev-lib/schema.json",
-			"description": "Generates A Dev-Only Library"
-		}
-	}
-}

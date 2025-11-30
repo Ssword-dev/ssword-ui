@@ -1,46 +1,42 @@
+'use client';
 import React, { forwardRef } from 'react';
 
-import { cn, cvm, InferVariantPropsWithClass } from '@ssword/utils-dom';
+import { Slot } from '@radix-ui/react-slot';
+import { cn, cvm } from '@ssword/utils-dom';
 
-// component configuration
+import type { RefType, Props, ClassProps, AsChildProps, VariantProps } from './types.ts';
 
-// component inheritance base
-const base = 'div';
+const base = 'span';
 
-// component variant manager
-const terminalOutputVM = cvm('', {
+type ComponentBase = typeof base;
+
+const terminalOutputVM = cvm('inline-flex flex-row font-mono text-text', {
 	variants: {},
 	defaultVariants: {},
 	compoundVariants: [],
 });
 
-// type alias for typeof base
-type BaseComponent = typeof base;
-
 interface TerminalOutputProps
-	extends React.ComponentProps<BaseComponent>,
-		InferVariantPropsWithClass<typeof terminalOutputVM> {
-	/* props here */
-}
+	extends Props<ComponentBase>,
+		ClassProps,
+		AsChildProps,
+		VariantProps<typeof terminalOutputVM> {}
 
-const TerminalOutput = forwardRef(({ className, ...props }: TerminalOutputProps, forwardedRef) => {
-	const Comp = base;
-
-	// split out children
-	const { children, ...restProps } = props;
-
-	// compute variant classes
-	const classes = terminalOutputVM(restProps);
-
-	return (
-		<Comp
-			{...restProps}
-			ref={forwardedRef}
-			className={cn(classes, className)}
-		>
-			{props.children}
-		</Comp>
-	);
-});
+const TerminalOutput = forwardRef<RefType<ComponentBase>, TerminalOutputProps>(
+	(props: TerminalOutputProps, forwardedRef) => {
+		const { className, asChild = false, ...restProps } = props;
+		const Comp = asChild ? Slot : base;
+		return (
+			<Comp
+				{...restProps}
+				ref={forwardedRef}
+				className={cn(terminalOutputVM({}), className)}
+			>
+				{props.children}
+			</Comp>
+		);
+	},
+);
 
 export default TerminalOutput;
+export type { TerminalOutputProps as Props };

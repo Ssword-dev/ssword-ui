@@ -36,6 +36,8 @@
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 
 	"eslint.options": {
-		"configFile": "./config/eslint/eslint.config.ts"
-	}
+		"overrideConfigFile": "eslint.config.mjs"
+	},
+
+	"task.runOnStartup": "dev"
 }

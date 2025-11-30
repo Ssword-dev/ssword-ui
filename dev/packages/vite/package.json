@@ -6,8 +6,10 @@
 		"email": "ssword.dev@gmail.com"
 	},
 	"devDependencies": {
-		"@workspace/vite": "workspace:^",
 		"rollup-plugin-dts": "^6.2.3",
 		"rollup-plugin-esbuild": "^6.2.1"
+	},
+	"dependencies": {
+		"@workspace/eslint": "workspace:^"
 	}
 }

@@ -30,7 +30,8 @@
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "^1.2.4",
-		"@ssword/utils-dom": "workspace:^"
+		"@ssword/utils-dom": "workspace:^",
+		"@workspace/eslint": "workspace:^"
 	},
 	"peerDependencies": {
 		"react": "^19.0.0",

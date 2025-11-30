@@ -1,5 +1,5 @@
 export interface ComponentGeneratorSchema {
-	name: string;
+	components: string[];
 	asChild?: boolean;
 	variants?: boolean;
 	forward?: boolean;

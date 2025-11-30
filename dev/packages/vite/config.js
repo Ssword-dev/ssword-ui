@@ -3,7 +3,7 @@ import dts from 'rollup-plugin-dts';
 import { join, dirname, isAbsolute, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const createExternal = (root) => {
+const External = (root) => {
 	const source = join(root, 'src');
 	const entry = join(root, 'src', 'index.ts');
 
@@ -33,7 +33,7 @@ const formatExtensions = {
 /**
  * @returns {import("rollup").OutputOptions}
  */
-const createSharedOutputOptions = () => ({
+const SharedOutputOptions = () => ({
 	// preserveModules: true,
 	preserveModulesRoot: 'src',
 	assetFileNames: '[name].[ext]',
@@ -50,7 +50,7 @@ export const defineLibraryConfig = ({
 }) => {
 	const configPath = fileURLToPath(configFile);
 	const root = dirname(configPath);
-	const external = createExternal(root);
+	const external = External(root);
 
 	const { build: buildOverrides = {}, define: defineOverrides = {}, configOverrides } = overrides;
 	return {
@@ -87,12 +87,12 @@ export const defineLibraryConfig = ({
 					{
 						format: 'cjs',
 						entryFileNames: '[name].cjs',
-						...createSharedOutputOptions(),
+						...SharedOutputOptions(),
 					},
 					{
 						format: 'es',
 						entryFileNames: '[name].mjs',
-						...createSharedOutputOptions(),
+						...SharedOutputOptions(),
 					},
 				],
 

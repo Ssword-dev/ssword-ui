@@ -1,6 +1,6 @@
-import { cvm } from '@ssword/utils-dom';
+import { cn, cvm } from '@ssword/utils-dom';
 import { forwardRef } from 'react';
-import { PropType, RefType, WithClass, WithVariants } from './types';
+import { ClassProps, PropType, RefType, VariantProps } from './types';
 
 const base = 'div';
 
@@ -13,16 +13,19 @@ const cardDescriptionVM = cvm('text-muted-foreground text-sm', {
 });
 
 interface CardDescriptionProps
-	extends WithVariants<WithClass<PropType<ComponentBase>>, typeof cardDescriptionVM> {}
+	extends PropType<ComponentBase>,
+		ClassProps,
+		VariantProps<typeof cardDescriptionVM> {}
 
 const CardDescription = forwardRef<RefType<ComponentBase>, CardDescriptionProps>(
 	(props, forwardedRef) => {
-		const { ...intrinsicProps } = props;
+		const { className, ...intrinsicProps } = props;
 		const Comp = base;
 
 		return (
 			<Comp
 				{...intrinsicProps}
+				className={cn(cardDescriptionVM({}), className)}
 				ref={forwardedRef}
 			/>
 		);

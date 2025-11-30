@@ -1,5 +1,5 @@
-import { cvm } from '@ssword/utils-dom';
-import { PropType, RefType, WithClass, WithVariants } from './types';
+import { cn, cvm } from '@ssword/utils-dom';
+import { ClassProps, Props, RefType, VariantProps } from './types';
 import { forwardRef } from 'react';
 
 const base = 'div';
@@ -13,15 +13,18 @@ const cardFooterVM = cvm('flex items-center px-6 [.border-t]:pt-6', {
 });
 
 interface CardFooterProps
-	extends WithVariants<WithClass<PropType<ComponentBase>>, typeof cardFooterVM> {}
+	extends Props<ComponentBase>,
+		ClassProps,
+		VariantProps<typeof cardFooterVM> {}
 
 const CardFooter = forwardRef<RefType<ComponentBase>, CardFooterProps>((props, forwardedRef) => {
-	const { ...intrinsicProps } = props;
+	const { className, ...intrinsicProps } = props;
 	const Comp = base;
 
 	return (
 		<Comp
 			{...intrinsicProps}
+			className={cn(cardFooterVM({}), className)}
 			ref={forwardedRef}
 		/>
 	);

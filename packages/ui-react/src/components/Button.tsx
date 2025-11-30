@@ -1,6 +1,6 @@
 import { cn, cvm } from '@ssword/utils-dom';
 import { forwardRef } from 'react';
-import { PropType, RefType, WithAsChild, WithClass, WithVariants } from './types';
+import { AsChildProps, ClassProps, Props, RefType, VariantProps } from './types';
 import { Slot } from '@radix-ui/react-slot';
 
 const base = 'button';
@@ -31,7 +31,10 @@ const buttonVM = cvm(
 );
 
 interface ButtonProps
-	extends WithVariants<WithAsChild<WithClass<PropType<ComponentBase>>>, typeof buttonVM> {}
+	extends Props<ComponentBase>,
+		ClassProps,
+		AsChildProps,
+		VariantProps<typeof buttonVM> {}
 
 /**
  * A Clickable UI Primitive.

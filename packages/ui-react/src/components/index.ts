@@ -10,8 +10,21 @@ export { default as CardDescription, type Props as CardDescriptionProps } from '
 export { default as CardFooter, type Props as CardFooterProps } from './CardFooter';
 export { default as CardHeader, type Props as CardHeaderProps } from './CardHeader';
 export { default as CardTitle, type Props as CardTitleProps } from './CardTitle';
+export {
+	default as PortalPortalContentPortalContainerPortalRoot,
+	type Props as PortalPortalContentPortalContainerPortalRootProps,
+} from './PortalPortalContentPortalContainerPortalRoot';
+export { default as Screen, type Props as ScreenProps } from './Screen';
 export { default as Skeleton, type Props as SkeletonProps } from './Skeleton';
+export { default as Stack, type Props as StackProps } from './Stack';
 export { default as Terminal, type Props as TerminalProps } from './Terminal';
 export { default as TerminalHeader, type Props as TerminalHeaderProps } from './TerminalHeader';
+export { default as TerminalInput, type Props as TerminalInputProps } from './TerminalInput';
+export {
+	default as TerminalInterface,
+	type Props as TerminalInterfaceProps,
+} from './TerminalInterface';
+export { default as TerminalLine, type Props as TerminalLineProps } from './TerminalLine';
 export { default as TerminalOutput, type Props as TerminalOutputProps } from './TerminalOutput';
+export { default as TerminalPrompt, type Props as TerminalPromptProps } from './TerminalPrompt';
 export { default as Text, type Props as TextProps } from './Text';

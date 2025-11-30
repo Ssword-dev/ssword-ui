@@ -1,5 +1,5 @@
-import { cvm } from '@ssword/utils-dom';
-import { PropType, RefType, WithClass, WithVariants } from './types';
+import { cn, cvm } from '@ssword/utils-dom';
+import { ClassProps, Props, RefType, VariantProps } from './types';
 import { forwardRef } from 'react';
 
 const base = 'div';
@@ -16,15 +16,18 @@ const cardHeaderVM = cvm(
 );
 
 interface CardHeaderProps
-	extends WithVariants<WithClass<PropType<ComponentBase>>, typeof cardHeaderVM> {}
+	extends Props<ComponentBase>,
+		ClassProps,
+		VariantProps<typeof cardHeaderVM> {}
 
 const CardHeader = forwardRef<RefType<ComponentBase>, CardHeaderProps>((props, forwardedRef) => {
-	const { ...intrinsicProps } = props;
+	const { className, ...intrinsicProps } = props;
 	const Comp = base;
 
 	return (
 		<Comp
 			{...intrinsicProps}
+			className={cn(className, cardHeaderVM({}))}
 			ref={forwardedRef}
 		/>
 	);
