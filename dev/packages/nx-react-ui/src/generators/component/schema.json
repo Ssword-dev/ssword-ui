@@ -8,10 +8,9 @@
 			"type": "array",
 			"description": "components to generate",
 			"items": {
-				"type": "string",
-				"x-prompt": "Add a component name"
+				"type": "string"
 			},
-			"x-type": "string[]"
+			"x-prompt": "Add component names"
 		},
 		"asChild": {
 			"type": "boolean",
@@ -34,7 +33,7 @@
 		"project": {
 			"type": "string",
 			"description": "",
-			"default": "packages/ui-react"
+			"default": "@ssword-ui/react"
 		}
 	},
 	"required": ["components"]

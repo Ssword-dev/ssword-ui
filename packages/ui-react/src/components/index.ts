@@ -10,10 +10,6 @@ export { default as CardDescription, type Props as CardDescriptionProps } from '
 export { default as CardFooter, type Props as CardFooterProps } from './CardFooter';
 export { default as CardHeader, type Props as CardHeaderProps } from './CardHeader';
 export { default as CardTitle, type Props as CardTitleProps } from './CardTitle';
-export {
-	default as PortalPortalContentPortalContainerPortalRoot,
-	type Props as PortalPortalContentPortalContainerPortalRootProps,
-} from './PortalPortalContentPortalContainerPortalRoot';
 export { default as Screen, type Props as ScreenProps } from './Screen';
 export { default as Skeleton, type Props as SkeletonProps } from './Skeleton';
 export { default as Stack, type Props as StackProps } from './Stack';

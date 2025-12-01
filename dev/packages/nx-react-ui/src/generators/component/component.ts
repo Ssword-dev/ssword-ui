@@ -310,6 +310,7 @@ export async function componentGenerator(
 	tree: Tree,
 	options: ComponentGeneratorSchema,
 ): Promise<void> {
+	console.log(JSON.stringify(options, null, 2));
 	await generateComponents(tree, options);
 	await tryCreateBarrelFile(tree, options);
 	await tryUpdateBarrelFile(tree, options);
